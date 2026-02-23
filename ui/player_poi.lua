@@ -1,94 +1,35 @@
 local ffi = require("ffi")
+local p = require("7.60.ui.core.lua.jit.p")
 local C = ffi.C
 
 ffi.cdef [[
   typedef uint64_t UniverseID;
-  typedef uint64_t NPCSeed;
-
 	typedef struct {
-		const char* name;
-		const char* colorid;
-	} RelationRangeInfo;
-
-	typedef struct {
-		size_t queueidx;
-		const char* state;
-		const char* statename;
-		const char* orderdef;
-		size_t actualparams;
-		bool enabled;
-		bool isinfinite;
-		bool issyncpointreached;
-		bool istemporder;
-	} Order;
-
-	typedef struct {
-		const char* id;
-		const char* name;
-		const char* icon;
-		const char* description;
-		const char* category;
-		const char* categoryname;
-		bool infinite;
-		uint32_t requiredSkill;
-	} OrderDefinition;
-
-	typedef struct {
-		const char* id;
-		const char* name;
-		const char* desc;
-		uint32_t amount;
-		uint32_t numtiers;
-		bool canhire;
-	} PeopleInfo;
+		int x;
+		int y;
+	} Coord2D;
 
   UniverseID GetPlayerID(void);
-  RelationRangeInfo GetUIRelationName(const char* fromfactionid, const char* tofactionid);
 
-	uint32_t GetNumAllFactionShips(const char* factionid);
-	uint32_t GetAllFactionShips(UniverseID* result, uint32_t resultlen, const char* factionid);
-
-  bool GetDefaultOrder(Order* result, UniverseID controllableid);
-
-	uint32_t CreateOrder(UniverseID controllableid, const char* orderid, bool default);
-	bool EnablePlannedDefaultOrder(UniverseID controllableid, bool checkonly);
-	bool GetOrderDefinition(OrderDefinition* result, const char* orderdef);
-
-  void SetFleetName(UniverseID controllableid, const char* fleetname);
-
-
-	int32_t GetEntityCombinedSkill(UniverseID entityid, const char* role, const char* postid);
-
-	bool IsPerson(NPCSeed person, UniverseID controllableid);
-	bool IsPersonTransferScheduled(UniverseID controllableid, NPCSeed person);
-  int32_t GetPersonCombinedSkill(UniverseID controllableid, NPCSeed person, const char* role, const char* postid);
-	const char* GetPersonName(NPCSeed person, UniverseID controllableid);
-	const char* GetPersonRole(NPCSeed person, UniverseID controllableid);
-	const char* GetPersonName(NPCSeed person, UniverseID controllableid);
-	const char* GetPersonRoleName(NPCSeed person, UniverseID controllableid);
-	UniverseID GetInstantiatedPerson(NPCSeed person, UniverseID controllableid);
-	bool HasPersonArrived(UniverseID controllableid, NPCSeed person);
-
-	uint32_t GetPeopleCapacity(UniverseID controllableid, const char* macroname, bool includepilot);
-  uint32_t GetNumAllRoles(void);
-	uint32_t GetPeople2(PeopleInfo* result, uint32_t resultlen, UniverseID controllableid, bool includearriving);
-
-  const char* AssignHiredActor(GenericActor actor, UniverseID targetcontrollableid, const char* postid, const char* roleid, bool checkonly);
-
-	bool HasResearched(const char* wareid);
+	Coord2D GetCenteredMousePos(void);
 
   double GetCurrentGameTime(void);
 ]]
 
 local debugLevel = "trace" -- "none", "debug", "trace"
 
-local texts = {}
+local texts = {
+  playerPOI = ReadText(1972092414,1),
+}
 
 
 local playerPoi = {
   playerId = nil,
   menuMap = nil,
   menuMapConfig = {},
+  tabIcon = "mapob_poi",
+  poiMacro = "player_poi_01_macro",
+  poiMode = "playerPOI",
 
 }
 
@@ -118,10 +59,92 @@ end
 function playerPoi.Init(menuMap)
   trace("playerPoi.Init called at " .. tostring(C.GetCurrentGameTime()))
   playerPoi.menuMap = menuMap
+  playerPoi.menuMapConfig = menuMap.uix_getConfig()
+  playerPoi.setupTab()
+  menuMap.registerCallback("createPropertyOwned_on_add_other_objects_infoTableData", playerPoi.prepareTabData)
+  menuMap.registerCallback("createPropertyOwned_on_createPropertySection_unassignedships", playerPoi.displayTabData)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
 end
 
 function playerPoi.resetData()
+end
+
+function playerPoi.setupTab()
+  local menu = playerPoi.menuMap
+  if menu == nil then
+    debug("Menu map is not initialized")
+    return
+  end
+  local config = playerPoi.menuMapConfig
+  local propertyCategories = config and config.propertyCategories or nil
+  if propertyCategories == nil then
+    debug("Property categories are not defined in menu map config")
+    return
+  end
+  for i = #propertyCategories, 1, -1 do
+    local category = propertyCategories[i]
+    if string.sub(category.id, 1, 10) ~= "custom_tab" then
+      if category.id == playerPoi.poiMode then
+        trace("Found playerPOI category in menu map config")
+      else 
+        local poiTab = {
+          id = playerPoi.poiMode,
+          name = texts.playerPOI,
+          icon = playerPoi.tabIcon,
+        }
+        if i == #propertyCategories then
+          propertyCategories[#propertyCategories + 1] = poiTab
+        else
+          table.insert(propertyCategories, i + 1, poiTab)
+        end
+      end
+      return
+    end
+  end
+end
+
+function playerPoi.prepareTabData(infoTableData)
+  local menu = playerPoi.menuMap
+  if menu == nil then
+    debug("Menu map is not initialized")
+    return
+  end
+  if infoTableData == nil then
+    debug("Info table data is nil")
+    return
+  end
+  if infoTableData.playerPOI ~= nil then
+    trace("Player POI data already prepared, skipping")
+    return
+  end
+  if infoTableData.deployables == nil or #infoTableData.deployables == 0 then
+    trace("No deployables found in info table data, skipping player POI data preparation")
+    return
+  end
+  infoTableData.playerPOI = {}
+  local playerPoiList = infoTableData.playerPOI
+  for i = #infoTableData.deployables, 1, -1 do
+    local deployable = infoTableData.deployables[i]
+    local macro = GetComponentData(deployable.id, "macro")
+    if macro == playerPoi.poiMacro then
+      trace("Found deployable with matching macro: " .. tostring(deployable.id))
+      playerPoiList[#playerPoiList + 1] = deployable
+      table.remove(infoTableData.deployables, i)
+    end
+  end
+end
+
+function playerPoi.displayTabData(numDisplayed, instance, ftable, infoTableData)
+  local menu = playerPoi.menuMap
+  if menu == nil then
+    debug("Menu map is not initialized")
+    return numDisplayed
+  end
+  infoTableData.playerPOI = infoTableData.playerPOI or {}
+  if menu.propertyMode == playerPoi.poiMode then
+    numDisplayed = menu.createPropertySection(instance, "owneddeployables", ftable, texts.playerPOI, infoTableData.playerPOI, "-- " .. ReadText(1001, 34) .. " --", nil, numDisplayed, nil, menu.propertySorterType)
+  end
+  return numDisplayed
 end
 
 function playerPoi.onRename(_, param)
@@ -154,7 +177,6 @@ local function Init()
     debug("Failed to get MapMenu or registerCallback is not a function")
     return
   end
-  playerPoi.menuMapConfig = menuMap.uix_getConfig()
   trace(string.format("menuMap is %s", tostring(menuMap)))
   playerPoi.Init(menuMap)
 end
