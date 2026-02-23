@@ -28,7 +28,7 @@ local playerPoi = {
   menuMapConfig = {},
   tabIcon = "mapob_poi",
   poiMacro = "player_poi_01_macro",
-  poiMode = "playerPOI",
+  poiMode = "mapst_ol_player_poi",
   mouseX = nil,
   mouseY = nil,
 
