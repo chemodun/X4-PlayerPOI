@@ -30,6 +30,8 @@ local playerPoi = {
   tabIcon = "mapob_poi",
   poiMacro = "player_poi_01_macro",
   poiMode = "playerPOI",
+  mouseX = nil,
+  mouseY = nil,
 
 }
 
@@ -56,13 +58,16 @@ local function bind(obj, methodName)
   end
 end
 
-function playerPoi.Init(menuMap)
+function playerPoi.Init(menuMap, menuInteract)
   trace("playerPoi.Init called at " .. tostring(C.GetCurrentGameTime()))
   playerPoi.menuMap = menuMap
   playerPoi.menuMapConfig = menuMap.uix_getConfig()
+  playerPoi.menuInteract = menuInteract
   playerPoi.setupTab()
   menuMap.registerCallback("createPropertyOwned_on_add_other_objects_infoTableData", playerPoi.prepareTabData)
   menuMap.registerCallback("createPropertyOwned_on_createPropertySection_unassignedships", playerPoi.displayTabData)
+  menuInteract.registerCallback("draw_on_start", playerPoi.getMousePosition)
+  menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeActivateDeactivateAction)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
 end
 
@@ -147,6 +152,41 @@ function playerPoi.displayTabData(numDisplayed, instance, ftable, infoTableData)
   return numDisplayed
 end
 
+function playerPoi.getMousePosition(config)
+  local menu = playerPoi.menuInteract
+  if menu == nil then
+    debug("Menu interact is not initialized")
+    return
+  end
+  playerPoi.mouseX = menu.mouseX
+  playerPoi.mouseY = menu.mouseY
+end
+
+function playerPoi.removeActivateDeactivateAction(actions, definedActions)
+  local menu = playerPoi.menuInteract
+  if menu == nil then
+    debug("Menu interact is not initialized")
+    return
+  end
+  local convertedComponent = menu.data and menu.data.convertedComponent or nil
+  if convertedComponent == nil then
+    trace("No converted component found in interact menu data, skipping action removal")
+    return
+  end
+  local macro = GetComponentData(convertedComponent, "macro")
+  if macro == playerPoi.poiMacro then
+    trace("Removing activate/deactivate actions for player POI component")
+    for i = #actions, 1, -1 do
+      local action = actions[i]
+      if action.actiontype == "detach" then
+        trace("Removing action with actiontype: " .. tostring(action.actiontype))
+        table.remove(actions, i)
+        definedActions[action.actiontype] = nil
+      end
+    end
+  end
+end
+
 function playerPoi.onRename(_, param)
   trace("onRename called with param: " .. tostring(param))
   local object = ConvertStringTo64Bit(tostring(param))
@@ -156,14 +196,24 @@ function playerPoi.onRename(_, param)
     return
   end
   local config = playerPoi.menuMapConfig
-  local mousepos = C.GetCenteredMousePos()
+  
+  local mouseX = playerPoi.mouseX
+  local mouseY = playerPoi.mouseY
+  if mouseX == nil or mouseY == nil then
+    local mousePos = C.GetCenteredMousePos()
+    mouseX = mousePos.x
+    mouseY = mousePos.y
+  end
+
   menu.contextMenuMode = "rename"
-  menu.contextMenuData = { component = object, xoffset = mousepos.x + Helper.viewWidth / 2, yoffset = mousepos.y + Helper.viewHeight / 2 }
+  menu.contextMenuData = { component = object, xoffset = mouseX + Helper.viewWidth / 2, yoffset = mouseY + Helper.viewHeight / 2 }
 
   local width = Helper.scaleX(config.renameWidth)
   if menu.contextMenuData.xoffset + width > Helper.viewWidth then
     menu.contextMenuData.xoffset = Helper.viewWidth - width - Helper.frameBorder
   end
+  playerPoi.mouseX = nil
+  playerPoi.mouseY = nil
 
   menu.createContextFrame(width, nil, menu.contextMenuData.xoffset, menu.contextMenuData.yoffset)
 end
@@ -171,14 +221,18 @@ end
 local function Init()
   playerPoi.playerId = ConvertStringTo64Bit(tostring(C.GetPlayerID()))
   debug("Initializing PlayerPOI UI extension with PlayerID: " .. tostring(playerPoi.playerId))
-  local menuMap = Helper.getMenu("MapMenu")
-  local menuMapIsOk = menuMap ~= nil and type(menuMap.registerCallback) == "function"
-  if not menuMapIsOk then
+  local menuMap = Helper.getMenu("MapMenu") 
+  if menuMap == nil or type(menuMap.registerCallback) ~= "function" then
     debug("Failed to get MapMenu or registerCallback is not a function")
     return
   end
-  trace(string.format("menuMap is %s", tostring(menuMap)))
-  playerPoi.Init(menuMap)
+  local menuInteract = Helper.getMenu("InteractMenu") 
+  if menuInteract == nil or type(menuInteract.registerCallback) ~= "function" then
+    debug("Failed to get InteractMenu or registerCallback is not a function")
+    return
+  end
+  trace(string.format("menuMap is %s, menuInteract is %s", tostring(menuMap), tostring(menuInteract)))
+  playerPoi.Init(menuMap, menuInteract)
 end
 
 
