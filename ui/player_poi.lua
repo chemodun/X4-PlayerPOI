@@ -26,11 +26,11 @@ local playerPoi = {
   playerId = nil,
   menuMap = nil,
   menuMapConfig = {},
-  tabIcon = "mapob_poi",
+  tabIcon = "mapst_ol_player_poi",
   poiMacro = "player_poi_01_macro",
-  poiMode = "mapst_ol_player_poi",
-  mouseX = nil,
-  mouseY = nil,
+  poiMode = "playerPOI",
+  posX = nil,
+  posY = nil,
 
 }
 
@@ -160,8 +160,8 @@ function playerPoi.getMousePosition(config)
     debug("Menu interact is not initialized")
     return
   end
-  playerPoi.mouseX = menu.mouseX
-  playerPoi.mouseY = menu.mouseY
+  playerPoi.posX = menu.posX
+  playerPoi.posY = menu.posY
 end
 
 function playerPoi.removeActivateDeactivateAction(actions, definedActions)
@@ -198,24 +198,23 @@ function playerPoi.onRename(_, param)
     return
   end
   local config = playerPoi.menuMapConfig
-
-  local mouseX = playerPoi.mouseX
-  local mouseY = playerPoi.mouseY
-  if mouseX == nil or mouseY == nil then
+  local posX = playerPoi.posX
+  local posY = playerPoi.posY
+  if posX == nil or posY == nil then
     local mousePos = C.GetCenteredMousePos()
-    mouseX = mousePos.x
-    mouseY = mousePos.y
+    posX = mousePos.x + Helper.viewWidth / 2
+    posY = mousePos.y + Helper.viewHeight / 2
   end
 
   menu.contextMenuMode = "rename"
-  menu.contextMenuData = { component = object, xoffset = mouseX + Helper.viewWidth / 2, yoffset = mouseY + Helper.viewHeight / 2 }
+  menu.contextMenuData = { component = object, xoffset = posX, yoffset = posY }
 
   local width = Helper.scaleX(config.renameWidth)
   if menu.contextMenuData.xoffset + width > Helper.viewWidth then
     menu.contextMenuData.xoffset = Helper.viewWidth - width - Helper.frameBorder
   end
-  playerPoi.mouseX = nil
-  playerPoi.mouseY = nil
+  playerPoi.posX = nil
+  playerPoi.posY = nil
 
   menu.createContextFrame(width, nil, menu.contextMenuData.xoffset, menu.contextMenuData.yoffset)
 end
