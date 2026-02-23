@@ -224,6 +224,8 @@
             <event_cue_signalled />
           </conditions>
           <actions>
+            <debug_text text="'PlayerPoi: On_Rename_POI invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <raise_lua_event name="'PlayerPoi.OnRename'" param="@event.param.$object" />
           </actions>
         </cue>
 
