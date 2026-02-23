@@ -12,6 +12,7 @@
           <conditions>
             <check_any>
               <event_cue_signalled cue="md.Interact_Menu_API.Reloaded" />
+              <event_ui_triggered screen="'PlayerPoi'" control="'Reloaded'" />
               <event_game_loaded />
             </check_any>
           </conditions>
@@ -167,7 +168,7 @@
                 <position x="$offset.x" y="$offset.y" z="$offset.z" />
               </create_object>
               <do_if value="$poi and @$poi != null">
-                <set_object_name object="$poi" name="{1972092414, 111}.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
+                <set_object_name object="$poi" name="'{1972092414, 111}'.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
               </do_if>
             </do_else>
             <remove_value name="$sector" />
@@ -193,7 +194,7 @@
                 <safepos object="$object" />
               </create_object>
               <do_if value="$poi and @$poi != null">
-                <set_object_name object="$poi" name="{1972092414, 112}.[$object.knownname, $object.idcode, $sector.knownname]" />
+                <set_object_name object="$poi" name="'{1972092414, 112}'.[$object.knownname, $object.idcode, $sector.knownname]" />
               </do_if>
             </do_else>
             <remove_value name="$sector" />

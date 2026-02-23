@@ -3,6 +3,7 @@
   <environment type="menus">
     <dependency name="sn_mod_support_apis" />
     <dependency name="ego_detailmonitor" />
+    <dependency name="ego_interactmenu" />
     <file name="ui/player_poi.lua" />
   </environment>
 </addon>

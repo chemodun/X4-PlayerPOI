@@ -1,5 +1,4 @@
 local ffi = require("ffi")
-local p = require("7.60.ui.core.lua.jit.p")
 local C = ffi.C
 
 ffi.cdef [[
@@ -19,7 +18,7 @@ ffi.cdef [[
 local debugLevel = "trace" -- "none", "debug", "trace"
 
 local texts = {
-  playerPOI = ReadText(1972092414,1),
+  playerPOI = ReadText(1972092414, 1),
 }
 
 
@@ -63,12 +62,13 @@ function playerPoi.Init(menuMap, menuInteract)
   playerPoi.menuMap = menuMap
   playerPoi.menuMapConfig = menuMap.uix_getConfig()
   playerPoi.menuInteract = menuInteract
-  playerPoi.setupTab()
   menuMap.registerCallback("createPropertyOwned_on_add_other_objects_infoTableData", playerPoi.prepareTabData)
   menuMap.registerCallback("createPropertyOwned_on_createPropertySection_unassignedships", playerPoi.displayTabData)
   menuInteract.registerCallback("draw_on_start", playerPoi.getMousePosition)
   menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeActivateDeactivateAction)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
+  AddUITriggeredEvent("PlayerPoi", "Reloaded")
+  playerPoi.setupTab()
 end
 
 function playerPoi.resetData()
@@ -88,12 +88,13 @@ function playerPoi.setupTab()
   end
   for i = #propertyCategories, 1, -1 do
     local category = propertyCategories[i]
-    if string.sub(category.id, 1, 10) ~= "custom_tab" then
-      if category.id == playerPoi.poiMode then
+    trace("Checking category with category: " .. tostring(category.category))
+    if string.sub(category.category, 1, 10) ~= "custom_tab" then
+      if category.category == playerPoi.poiMode then
         trace("Found playerPOI category in menu map config")
-      else 
+      else
         local poiTab = {
-          id = playerPoi.poiMode,
+          category = playerPoi.poiMode,
           name = texts.playerPOI,
           icon = playerPoi.tabIcon,
         }
@@ -130,26 +131,27 @@ function playerPoi.prepareTabData(infoTableData)
   local playerPoiList = infoTableData.playerPOI
   for i = #infoTableData.deployables, 1, -1 do
     local deployable = infoTableData.deployables[i]
-    local macro = GetComponentData(deployable.id, "macro")
+    local macro = GetComponentData(ConvertStringTo64Bit(tostring(deployable)), "macro")
     if macro == playerPoi.poiMacro then
-      trace("Found deployable with matching macro: " .. tostring(deployable.id))
+      trace("Found deployable with matching macro: " .. tostring(deployable))
       playerPoiList[#playerPoiList + 1] = deployable
       table.remove(infoTableData.deployables, i)
     end
   end
+  trace("Prepared player POI data with " .. tostring(#playerPoiList) .. " entries")
 end
 
 function playerPoi.displayTabData(numDisplayed, instance, ftable, infoTableData)
   local menu = playerPoi.menuMap
   if menu == nil then
     debug("Menu map is not initialized")
-    return numDisplayed
+    return { numdisplayed = numDisplayed }
   end
   infoTableData.playerPOI = infoTableData.playerPOI or {}
   if menu.propertyMode == playerPoi.poiMode then
     numDisplayed = menu.createPropertySection(instance, "owneddeployables", ftable, texts.playerPOI, infoTableData.playerPOI, "-- " .. ReadText(1001, 34) .. " --", nil, numDisplayed, nil, menu.propertySorterType)
   end
-  return numDisplayed
+  return { numdisplayed = numDisplayed }
 end
 
 function playerPoi.getMousePosition(config)
@@ -196,7 +198,7 @@ function playerPoi.onRename(_, param)
     return
   end
   local config = playerPoi.menuMapConfig
-  
+
   local mouseX = playerPoi.mouseX
   local mouseY = playerPoi.mouseY
   if mouseX == nil or mouseY == nil then
@@ -221,12 +223,12 @@ end
 local function Init()
   playerPoi.playerId = ConvertStringTo64Bit(tostring(C.GetPlayerID()))
   debug("Initializing PlayerPOI UI extension with PlayerID: " .. tostring(playerPoi.playerId))
-  local menuMap = Helper.getMenu("MapMenu") 
+  local menuMap = Helper.getMenu("MapMenu")
   if menuMap == nil or type(menuMap.registerCallback) ~= "function" then
     debug("Failed to get MapMenu or registerCallback is not a function")
     return
   end
-  local menuInteract = Helper.getMenu("InteractMenu") 
+  local menuInteract = Helper.getMenu("InteractMenu")
   if menuInteract == nil or type(menuInteract.registerCallback) ~= "function" then
     debug("Failed to get InteractMenu or registerCallback is not a function")
     return
