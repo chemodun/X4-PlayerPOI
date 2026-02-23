@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Exported by: Lino (192.168.3.146) at 27.11.2018_16-29-16-->
+<macros>
+  <macro name="player_poi_01_macro" class="navbeacon">
+    <component ref="player_poi_01" />
+    <properties>
+      <identification name="{1972092414,1}" description="{1972092414,2}" icon="mapob_poi" />
+      <hull invulnerable="1" />
+    </properties>
+  </macro>
+</macros>

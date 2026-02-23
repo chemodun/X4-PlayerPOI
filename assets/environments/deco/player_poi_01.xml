@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<components>
+	<component name="player_poi_01" class="navbeacon">
+		<connections>
+			<connection name="position" tags="position" value="1" />
+			<connection name="space" tags="navbeacon">
+				<offset />
+			</connection>
+		</connections>
+	</component>
+</components>

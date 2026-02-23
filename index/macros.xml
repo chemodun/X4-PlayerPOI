@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<diff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <add sel="/index">
+        <entry name="player_poi_01_macro" value="extensions\player_poi\assets\environments\deco\macros\player_poi_01_macro" />
+    </add>
+</diff>

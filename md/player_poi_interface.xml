@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Player_POI_Interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cues>
+
+    <cue name="Main" version="1">
+      <actions>
+        <set_value name="$isInitializedAt" exact="null" />
+        <set_value name="$menuSection" exact="'player_poi_group'" />
+      </actions>
+      <cues>
+        <cue name="On_Reload" instantiate="true" version="1">
+          <conditions>
+            <check_any>
+              <event_cue_signalled cue="md.Interact_Menu_API.Reloaded" />
+              <event_game_loaded />
+            </check_any>
+          </conditions>
+          <actions>
+            <do_if value="not $isInitializedAt? or (player.age - $isInitializedAt) gt 10">
+              <raise_lua_event name="'Interact_Menu_API.Existence_Query'" />
+              <set_value name="$isInitializedAt" exact="player.age" />
+              <reset_cue cue="this" />
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="On_UIX_Interact_Menu_Present" instantiate="true" version="1">
+          <conditions>
+            <event_ui_triggered screen="'UIX_Interact_Menu_Present'" />
+          </conditions>
+          <actions>
+            <debug_text text="'PlayerPoi: UIX Interact Menu Present.'" chance="100" filter="scripts" />
+            <raise_lua_event name="'Interact_Menu_API.Add_Custom_Actions_Group_Id'" param="$menuSection" />
+            <raise_lua_event name="'Interact_Menu_API.Add_Custom_Actions_Group_Text'" param="{1972092414, 1}" />
+            <reset_cue cue="this" />
+          </actions>
+        </cue>
+
+        <library name="Init_Variables" version="1">
+          <actions>
+          </actions>
+        </library>
+
+        <cue name="Add_Menu_Actions" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
+            <debug_text text="'PlayerPoi: Get_Actions invoked with param: %s'.[event.param]" debugchance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Get_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="100" filter="scripts" />
+            <check_value value="player.holomap.isopen" />
+            <check_value value="event.param.$object? and @event.param.$object != null" />
+            <set_value name="$sector" exact="null" />
+            <set_value name="$poi" exact="null" />
+            <check_any>
+              <check_all>
+                <check_value value="@event.param.$object.isclass.{class.sector}" />
+                <check_value value="@event.param.$offsetcomponent == @event.param.$object" />
+                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
+                <set_value name="$sector" exact="@event.param.$object" />
+              </check_all>
+              <check_all>
+                <check_value value="@event.param.$object.isclass.{class.navbeacon}" />
+                <check_value value="@event.param.$object.macro == macro.player_poi_01_macro" />
+                <check_value value="@event.param.$offsetcomponent.isclass.{class.sector}" />
+                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
+                <set_value name="$poi" exact="@event.param.$object" />
+              </check_all>
+              <check_all>
+                <check_value value="@event.param.$object.owner != faction.player" />
+                <check_any>
+                  <check_value value="@event.param.$object.isclass.{class.station}" />
+                  <check_value value="@event.param.$object.isclass.{class.gate}" />
+                </check_any>
+                <check_value value="@event.param.$offsetcomponent.isclass.{class.sector}" />
+                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
+                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
+              </check_all>
+            </check_any>
+          </conditions>
+          <actions>
+            <set_value name="$params" exact="event.param" />
+            <debug_text text="'PlayerPoi: Get_Actions resolved sector: %s, and POI: %s'.[@$sector, @$poi]" chance="100" filter="scripts" />
+            <do_if value="@$sector != null">
+              <set_value name="$sector" exact="event.param.$object" />
+              <set_value name="$offset" exact="event.param.$offset" />
+              <set_value name="$text" exact="{1972092414, 1011}.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
+              <signal_cue_instantly
+                cue="md.Interact_Menu_API.Add_Action"
+                param="table[
+                  $id             = 'player_poi_create_poi',
+                  $section        = $menuSection,
+                  $text           = $text,
+                  $icon           = 'mapob_poi',
+                  $mouseover      = $text,
+                  $mouseover_icon = 'mapob_poi',
+                  $active         = true,
+                  $callback       = On_Create_POI_At_Point,
+                ]" />
+            </do_if>
+            <do_elseif value="@$poi != null">
+              <signal_cue_instantly
+                cue="md.Interact_Menu_API.Add_Action"
+                param="table[
+                  $id             = 'player_poi_rename_poi',
+                  $section        = $menuSection,
+                  $text           = {1972092414, 1021},
+                  $icon           = 'mapob_poi',
+                  $mouseover      = {1972092414, 1021},
+                  $mouseover_icon = 'mapob_poi',
+                  $active         = true,
+                  $callback       = On_Rename_POI,
+                ]" />
+              <signal_cue_instantly
+                cue="md.Interact_Menu_API.Add_Action"
+                param="table[
+                  $id             = 'player_poi_delete_poi',
+                  $section        = $menuSection,
+                  $text           = {1972092414, 1091},
+                  $icon           = 'mapob_poi',
+                  $mouseover      = {1972092414, 1091},
+                  $mouseover_icon = 'mapob_poi',
+                  $active         = true,
+                  $callback       = On_Destroy_POI,
+                ]" />
+            </do_elseif>
+            <do_else>
+              <set_value name="$text" exact="{1972092414, 1012}.['%s'.[event.param.$object.knownname]]" />
+              <signal_cue_instantly
+                cue="md.Interact_Menu_API.Add_Action"
+                param="table[
+                  $id             = 'player_poi_create_poi',
+                  $section        = $menuSection,
+                  $text           = $text,
+                  $icon           = 'mapob_poi',
+                  $mouseover      = $text,
+                  $mouseover_icon = 'mapob_poi',
+                  $active         = true,
+                  $callback       = On_Create_POI_On_Object,
+                ]" />
+              <remove_value name="$text" />
+            </do_else>
+            <remove_value name="$sector" />
+            <remove_value name="$poi" />
+            <remove_value name="$params" />
+          </actions>
+        </cue>
+
+        <cue name="On_Create_POI_At_Point" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <debug_text text="'PlayerPoi: On_Create_POI_At_Point invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <set_value name="$sector" exact="event.param.$object" />
+            <set_value name="$offset" exact="event.param.$offset" />
+            <do_if
+              value="not $sector? or not $sector.isclass.{class.sector}">
+              <debug_text text="'PlayerPoi: unable to resolve sector context.'"
+                chance="100" filter="scripts" />
+            </do_if>
+            <do_else>
+              <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
+                <position x="$offset.x" y="$offset.y" z="$offset.z" />
+              </create_object>
+              <do_if value="$poi and @$poi != null">
+                <set_object_name object="$poi" name="{1972092414, 111}.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
+              </do_if>
+            </do_else>
+            <remove_value name="$sector" />
+            <remove_value name="$offset" />
+          </actions>
+        </cue>
+
+        <cue name="On_Create_POI_On_Object" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <debug_text text="'PlayerPoi: On_Create_POI_On_Object invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <set_value name="$sector" exact="event.param.$offsetcomponent" />
+            <set_value name="$object" exact="event.param.$object" />
+            <do_if
+              value="not $sector? or not $sector.isclass.{class.sector}">
+              <debug_text text="'PlayerPoi: unable to resolve sector context.'"
+                chance="100" filter="scripts" />
+            </do_if>
+            <do_else>
+              <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
+                <safepos object="$object" />
+              </create_object>
+              <do_if value="$poi and @$poi != null">
+                <set_object_name object="$poi" name="{1972092414, 112}.[$object.knownname, $object.idcode, $sector.knownname]" />
+              </do_if>
+            </do_else>
+            <remove_value name="$sector" />
+            <remove_value name="$object" />
+          </actions>
+        </cue>
+
+        <cue name="On_Destroy_POI" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <debug_text text="'PlayerPoi: On_Destroy_POI invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <set_value name="$poi" exact="event.param.$object" />
+            <do_if value="@$poi == null or @$poi.macro != macro.player_poi_01_macro">
+              <debug_text text="'PlayerPoi: destroy invoked without POI reference.'"
+                chance="100" filter="scripts" />
+            </do_if>
+            <do_else>
+              <destroy_object object="$poi" explosion="false" />
+            </do_else>
+            <remove_value name="$poi" />
+          </actions>
+        </cue>
+
+        <cue name="On_Rename_POI" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+          </actions>
+        </cue>
+
+
+      </cues>
+    </cue>
+
+
+  </cues>
+</mdscript>
