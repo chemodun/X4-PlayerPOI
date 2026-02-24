@@ -52,6 +52,7 @@
               <set_value name="$debugLevelCurrentIndex" exact="1" />
             </do_if>
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
               param="table[
                   $id = 'player_poi_optimizeRename',
@@ -67,6 +68,7 @@
                 $colSpan = 7,
                 $text = {1972092414, 90001},
               ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
               param="table[
