@@ -33,11 +33,13 @@
             <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
             <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with param: %s'.[event.param]" debugchance="100" filter="scripts" />
             <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="100" filter="scripts" />
-            <check_value value="player.holomap.isopen" />
+            <check_value value="@player.holomap.isopen or @event.param.$showPlayerInteractions" />
             <check_value value="event.param.$object? and @event.param.$object != null" />
             <set_value name="$sector" exact="null" />
             <set_value name="$poi" exact="null" />
-            <check_value value="@event.param.$selectedplayerships.count == null or @event.param.$selectedplayerships.count == 0" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions 1'" chance="100" filter="scripts" />
+            <check_value value="@event.param.$selectedplayerships.count == null or @event.param.$selectedplayerships.count == 0 or @event.param.$selectedplayerships.count == 1 and @event.param.$showPlayerInteractions == 1" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions 2'" chance="100" filter="scripts" />
             <check_any>
               <check_all>
                 <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0" />
@@ -147,7 +149,7 @@
           </conditions>
           <actions>
             <debug_text text="'PlayerPoi: On_Create_POI_On_Object invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
-            <set_value name="$sector" exact="event.param.$offsetcomponent" />
+            <set_value name="$sector" exact="if event.param.$offsetcomponent != null then event.param.$offsetcomponent else event.param.$object.sector" />
             <set_value name="$object" exact="event.param.$object" />
             <do_if
               value="not $sector? or not $sector.isclass.{class.sector}">
