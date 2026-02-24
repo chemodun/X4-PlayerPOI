@@ -64,6 +64,7 @@ function playerPoi.Init(menuMap, menuInteract)
   playerPoi.menuInteract = menuInteract
   menuMap.registerCallback("createPropertyOwned_on_add_other_objects_infoTableData", playerPoi.prepareTabData)
   menuMap.registerCallback("createPropertyOwned_on_createPropertySection_unassignedships", playerPoi.displayTabData)
+  menuMap.registerCallback("onRenderTargetSelect_on_propertyowned_newmode", playerPoi.selectTabForPlayerPoiItems)
   menuInteract.registerCallback("draw_on_start", playerPoi.getMousePosition)
   menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeActivateDeactivateAction)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
@@ -188,6 +189,16 @@ function playerPoi.removeActivateDeactivateAction(actions, definedActions)
     end
   end
 end
+
+function playerPoi.selectTabForPlayerPoiItems(pickedComponent64, newMode)
+  trace("pickedComponent64: " .. tostring(pickedComponent64))
+  local macro = GetComponentData(pickedComponent64, "macro")
+  if macro == playerPoi.poiMacro then
+    newMode = playerPoi.poiMode
+  end
+  return { newmode = newMode }
+end
+
 
 function playerPoi.onRename(_, param)
   trace("onRename called with param: " .. tostring(param))
