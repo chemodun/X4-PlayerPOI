@@ -15,7 +15,7 @@ ffi.cdef [[
   double GetCurrentGameTime(void);
 ]]
 
-local debugLevel = "trace" -- "none", "debug", "trace"
+local debugLevel = "none" -- "none", "debug", "trace"
 
 local texts = {
   playerPOI = ReadText(1972092414, 1),
@@ -26,12 +26,13 @@ local playerPoi = {
   playerId = nil,
   menuMap = nil,
   menuMapConfig = {},
+  variableId = "playerPoi",
   tabIcon = "mapst_ol_player_poi",
   poiMacro = "player_poi_01_macro",
   poiMode = "playerPOI",
   posX = nil,
   posY = nil,
-
+  optimizeRename = true
 }
 
 local config = {}
@@ -68,8 +69,20 @@ function playerPoi.Init(menuMap, menuInteract)
   menuInteract.registerCallback("draw_on_start", playerPoi.getMousePosition)
   menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeSomeActions)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
+  RegisterEvent("PlayerPoi.ConfigChanged", playerPoi.onConfigChanged)
   AddUITriggeredEvent("PlayerPoi", "Reloaded")
   playerPoi.setupTab()
+end
+
+function playerPoi.onConfigChanged(_, _)
+  local variableId = string.format("$%s", playerPoi.variableId)
+  local config = GetNPCBlackboard(playerPoi.playerId, variableId)
+  if config == nil then
+    return
+  end
+  playerPoi.optimizeRename = config.optimizeRename ~= nil and config.optimizeRename ~= false and config.optimizeRename ~= 0
+  debugLevel = config.debugLevel or "none"
+  debug("Configuration changed: optimizedRename=" .. tostring(playerPoi.optimizeRename) .. ", debugLevel=" .. tostring(debugLevel))
 end
 
 function playerPoi.resetData()
@@ -181,7 +194,7 @@ function playerPoi.removeSomeActions(actions, definedActions)
     trace("Removing activate/deactivate actions for player POI component")
     for i = #actions, 1, -1 do
       local action = actions[i]
-    if action.actiontype == "detach" or string.find(action.actiontype, "collectdeployable") then
+      if action.actiontype == "detach" or string.find(action.actiontype, "collectdeployable") then
         trace("Removing action with actiontype: " .. tostring(action.actiontype))
         table.remove(actions, i)
         definedActions[action.actiontype] = nil
@@ -201,7 +214,7 @@ end
 
 
 function playerPoi.onRename(_, param)
-  trace("onRename called with param: " .. tostring(param))
+  trace("onRename called with param: " .. tostring(param) .. " and optimizedRename: " .. tostring(playerPoi.optimizeRename))
   local object = ConvertStringTo64Bit(tostring(param))
   local menu = playerPoi.menuMap
   if menu == nil then
@@ -211,7 +224,7 @@ function playerPoi.onRename(_, param)
   local config = playerPoi.menuMapConfig
   local posX = playerPoi.posX
   local posY = playerPoi.posY
-  if posX == nil or posY == nil then
+  if playerPoi.optimizeRename ~= true or posX == nil or posY == nil then
     local mousePos = C.GetCenteredMousePos()
     posX = mousePos.x + Helper.viewWidth / 2
     posY = mousePos.y + Helper.viewHeight / 2
@@ -232,6 +245,7 @@ end
 
 local function Init()
   playerPoi.playerId = ConvertStringTo64Bit(tostring(C.GetPlayerID()))
+  playerPoi.onConfigChanged()
   debug("Initializing PlayerPOI UI extension with PlayerID: " .. tostring(playerPoi.playerId))
   local menuMap = Helper.getMenu("MapMenu")
   if menuMap == nil or type(menuMap.registerCallback) ~= "function" then

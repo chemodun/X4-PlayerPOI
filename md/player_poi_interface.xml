@@ -5,6 +5,7 @@
     <cue name="Main" version="1">
       <actions>
         <set_value name="$isInitializedAt" exact="null" />
+        <set_value name="$debugChance" exact="0" />
       </actions>
       <cues>
         <cue name="On_Reload" instantiate="true" version="1">
@@ -16,6 +17,7 @@
             </check_any>
           </conditions>
           <actions>
+            <include_actions ref="Get_Variables" />
             <do_if value="not $isInitializedAt? or (player.age - $isInitializedAt) gt 10">
               <set_value name="$isInitializedAt" exact="player.age" />
               <reset_cue cue="this" />
@@ -23,23 +25,37 @@
           </actions>
         </cue>
 
-        <library name="Init_Variables" version="1">
+        <library name="Get_Variables" version="1">
           <actions>
+            <do_if value="@player.entity.$playerPoi == null">
+              <set_value name="player.entity.$playerPoi" exact="table[$debugLevel = 'none', $optimizeRename = true]" />
+            </do_if>
+            <set_value name="$debugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
           </actions>
         </library>
+
+        <cue name="On_Debug_Level_Changed" instantiate="true" version="1">
+          <conditions>
+            <event_object_signalled object="player.entity" param="'PlayerPoi.DebugLevelChangedSignal'" />
+          </conditions>
+          <actions>
+            <include_actions ref="Get_Variables" />
+            <debug_text text="'PlayerPoi Options: Debug Level changed to %s' .[@player.entity.$playerPoi.$debugLevel]" context="false" filter="scripts" chance="$debugChance" />
+          </actions>
+        </cue>
 
         <cue name="Add_Menu_Actions" instantiate="true" version="1">
           <conditions>
             <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with param: %s'.[event.param]" debugchance="100" filter="scripts" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with param: %s'.[event.param]" debugchance="$debugChance" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="$debugChance" filter="scripts" />
             <check_value value="@player.holomap.isopen or @event.param.$showPlayerInteractions" />
             <check_value value="event.param.$object? and @event.param.$object != null" />
             <set_value name="$sector" exact="null" />
             <set_value name="$poi" exact="null" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions 1'" chance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions 1'" chance="$debugChance" filter="scripts" />
             <check_value value="@event.param.$selectedplayerships.count == null or @event.param.$selectedplayerships.count == 0 or @event.param.$selectedplayerships.count == 1 and @event.param.$showPlayerInteractions == 1" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions 2'" chance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions 2'" chance="$debugChance" filter="scripts" />
             <check_any>
               <check_all>
                 <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0" />
@@ -67,8 +83,9 @@
             </check_any>
           </conditions>
           <actions>
+            <include_actions ref="Get_Variables" />
             <set_value name="$params" exact="event.param" />
-            <debug_text text="'PlayerPoi: Get_Actions resolved sector: %s, and POI: %s'.[@$sector, @$poi]" chance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Get_Actions resolved sector: %s, and POI: %s'.[@$sector, @$poi]" chance="$debugChance" filter="scripts" />
             <do_if value="@$sector != null">
               <set_value name="$sector" exact="event.param.$object" />
               <set_value name="$offset" exact="event.param.$offset" />
@@ -120,13 +137,14 @@
             <event_cue_signalled />
           </conditions>
           <actions>
-            <debug_text text="'PlayerPoi: On_Create_POI_At_Point invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <include_actions ref="Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Create_POI_At_Point invoked with param: %s'.[event.param]" chance="$debugChance" filter="scripts" />
             <set_value name="$sector" exact="event.param.$object" />
             <set_value name="$offset" exact="event.param.$offset" />
             <do_if
               value="not $sector? or not $sector.isclass.{class.sector}">
               <debug_text text="'PlayerPoi: unable to resolve sector context.'"
-                chance="100" filter="scripts" />
+                chance="$debugChance" filter="scripts" />
             </do_if>
             <do_else>
               <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
@@ -148,13 +166,14 @@
             <event_cue_signalled />
           </conditions>
           <actions>
-            <debug_text text="'PlayerPoi: On_Create_POI_On_Object invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <include_actions ref="Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Create_POI_On_Object invoked with param: %s'.[event.param]" chance="$debugChance" filter="scripts" />
             <set_value name="$sector" exact="if event.param.$offsetcomponent != null then event.param.$offsetcomponent else event.param.$object.sector" />
             <set_value name="$object" exact="event.param.$object" />
             <do_if
               value="not $sector? or not $sector.isclass.{class.sector}">
               <debug_text text="'PlayerPoi: unable to resolve sector context.'"
-                chance="100" filter="scripts" />
+                chance="$debugChance" filter="scripts" />
             </do_if>
             <do_else>
               <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
@@ -176,7 +195,8 @@
             <event_cue_signalled />
           </conditions>
           <actions>
-            <debug_text text="'PlayerPoi: On_Rename_POI invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
+            <include_actions ref="Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Rename_POI invoked with param: %s'.[event.param]" chance="$debugChance" filter="scripts" />
             <raise_lua_event name="'PlayerPoi.OnRename'" param="@event.param.$object" />
           </actions>
         </cue>

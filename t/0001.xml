@@ -11,6 +11,11 @@
       <t id="112">{1972092414, 100}: {1972092414, 102}</t>
       <t id="1011">Create POI at: {1972092414, 101}</t>
       <t id="1012">Assign POI</t>
+      <t id="90001">Optimize rename window location</t>
+      <t id="90009">Debug level:</t>
+      <t id="90091">No debug</t>
+      <t id="90092">Debug</t>
+      <t id="90093">Trace</t>
     </page>
   </add>
 </diff>
