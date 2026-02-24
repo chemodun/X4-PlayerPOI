@@ -28,10 +28,15 @@ Implementation of player POI (point of interest) system, allowing players to cre
 [list]
 [*] With [url=https://www.nexusmods.com/x4foundations/mods/842]Custom Tabs[/url] mod by [url=https://www.nexusmods.com/x4foundations/users/7018859]Mycu[/url]
 [/list]
+[size=125][u]Limitations[/u][/size]
+[list]
+[*] As there is standard [b]Rename[/b] window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
+[*] [b]POI[/b] is not attached to the assigned object, so there is no limitation on count of [b]POIs[/b] that can be assigned to the same object, but also it means that if the assigned object is moved or destroyed, the [b]POI[/b] will remain in its original location and will not be updated or removed.
+[/list]
 [size=130][u]Installation[/u][/size]
 [list]
 [*] [b]Steam Workshop[/b]: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=]Player POI[/url]
-[*] [b]Nexus Mods[/b]: [url=https://www.nexusmods.com/x4foundations/mods/]Player POI[/url]
+[*] [b]Nexus Mods[/b]: [url=https://www.nexusmods.com/x4foundations/mods/1990]Player POI[/url]
 [/list]
 [size=130][u]Usage[/u][/size]
 
@@ -142,7 +147,7 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 
 [size=130][u]Video[/u][/size]
 
-[url=https://www.youtube.com/watch?v=0]Video demonstration of the . Version 1.00[/url]
+[url=https://www.youtube.com/watch?v=YpPnR0eNdJg]Video demonstration of Player POI[/url]
 
 [size=130][u]Credits[/u][/size]
 [list]
@@ -158,7 +163,7 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 [size=130][u]Changelog[/u][/size]
 
 
-[size=125][u][1.00] - 2026-02-??[/u][/size]
+[size=125][u][8.00.01] - 2026-02-24[/u][/size]
 [list]
 [*] [b]Added[/b]
 [list]
