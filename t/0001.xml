@@ -10,9 +10,7 @@
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
       <t id="112">{1972092414, 100}: {1972092414, 102}</t>
       <t id="1011">Create POI at: {1972092414, 101}</t>
-      <t id="1012">Create POI on: %s</t>
-      <t id="1021">Rename POI</t>
-      <t id="1091">Delete POI</t>
+      <t id="1012">Assign POI</t>
     </page>
   </add>
 </diff>

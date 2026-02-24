@@ -5,7 +5,7 @@
     <cue name="Main" version="1">
       <actions>
         <set_value name="$isInitializedAt" exact="null" />
-        <set_value name="$menuSection" exact="'player_poi_group'" />
+        <set_value name="$menuSection" exact="'order'" />
       </actions>
       <cues>
         <cue name="On_Reload" instantiate="true" version="1">
@@ -18,22 +18,9 @@
           </conditions>
           <actions>
             <do_if value="not $isInitializedAt? or (player.age - $isInitializedAt) gt 10">
-              <raise_lua_event name="'Interact_Menu_API.Existence_Query'" />
               <set_value name="$isInitializedAt" exact="player.age" />
               <reset_cue cue="this" />
             </do_if>
-          </actions>
-        </cue>
-
-        <cue name="On_UIX_Interact_Menu_Present" instantiate="true" version="1">
-          <conditions>
-            <event_ui_triggered screen="'UIX_Interact_Menu_Present'" />
-          </conditions>
-          <actions>
-            <debug_text text="'PlayerPoi: UIX Interact Menu Present.'" chance="100" filter="scripts" />
-            <raise_lua_event name="'Interact_Menu_API.Add_Custom_Actions_Group_Id'" param="$menuSection" />
-            <raise_lua_event name="'Interact_Menu_API.Add_Custom_Actions_Group_Text'" param="{1972092414, 1}" />
-            <reset_cue cue="this" />
           </actions>
         </cue>
 
@@ -45,40 +32,36 @@
         <cue name="Add_Menu_Actions" instantiate="true" version="1">
           <conditions>
             <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
-            <debug_text text="'PlayerPoi: Get_Actions invoked with param: %s'.[event.param]" debugchance="100" filter="scripts" />
-            <debug_text text="'PlayerPoi: Get_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with param: %s'.[event.param]" debugchance="100" filter="scripts" />
+            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="100" filter="scripts" />
             <check_value value="player.holomap.isopen" />
             <check_value value="event.param.$object? and @event.param.$object != null" />
             <set_value name="$sector" exact="null" />
             <set_value name="$poi" exact="null" />
+            <check_value value="@event.param.$selectedplayerships.count == null or @event.param.$selectedplayerships.count == 0" />
             <check_any>
               <check_all>
+                <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0" />
+                <check_value value="@event.param.$selectedplayerdeployables.count == null or @event.param.$selectedplayerdeployables.count == 0" />
                 <check_value value="@event.param.$object.isclass.{class.sector}" />
                 <check_value value="@event.param.$offsetcomponent == @event.param.$object" />
-                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
                 <set_value name="$sector" exact="@event.param.$object" />
               </check_all>
               <check_all>
+                <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0" />
+                <check_value value="@event.param.$selectedplayerdeployables.count == null or @event.param.$selectedplayerdeployables.count == 0 or @event.param.$selectedplayerdeployables.count == 1 and @event.param.$selectedplayerdeployables.indexof.{@event.param.$object} gt 0" />
                 <check_value value="@event.param.$object.isclass.{class.navbeacon}" />
                 <check_value value="@event.param.$object.macro == macro.player_poi_01_macro" />
-                <check_value value="@event.param.$offsetcomponent.isclass.{class.sector}" />
-                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
                 <set_value name="$poi" exact="@event.param.$object" />
               </check_all>
               <check_all>
+                <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0 or @event.param.$selectedotherobjects.count == 1 and @event.param.$selectedotherobjects.indexof.{@event.param.$object} gt 0" />
+                <check_value value="@event.param.$selectedplayerdeployables.count == null or @event.param.$selectedplayerdeployables.count == 0" />
                 <check_value value="@event.param.$object.owner != faction.player" />
                 <check_any>
                   <check_value value="@event.param.$object.isclass.{class.station}" />
                   <check_value value="@event.param.$object.isclass.{class.gate}" />
                 </check_any>
-                <check_value value="@event.param.$offsetcomponent.isclass.{class.sector}" />
-                <check_value value="@event.param.$offsetcomponent.$selectedotherobjects.count == null or @event.param.$offsetcomponent.$selectedotherobjects.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerdeployables.count == null or @event.param.$offsetcomponent.$selectedplayerdeployables.count == 0" />
-                <check_value value="@event.param.$offsetcomponent.$selectedplayerships.count == null or @event.param.$offsetcomponent.$selectedplayerships.count == 0" />
               </check_all>
             </check_any>
           </conditions>
@@ -108,41 +91,22 @@
                 param="table[
                   $id             = 'player_poi_rename_poi',
                   $section        = $menuSection,
-                  $text           = {1972092414, 1021},
-                  $icon           = 'mapob_poi',
-                  $mouseover      = {1972092414, 1021},
-                  $mouseover_icon = 'mapob_poi',
+                  $text           = {1001, 1114},
                   $active         = true,
                   $callback       = On_Rename_POI,
                 ]" />
-              <signal_cue_instantly
-                cue="md.Interact_Menu_API.Add_Action"
-                param="table[
-                  $id             = 'player_poi_delete_poi',
-                  $section        = $menuSection,
-                  $text           = {1972092414, 1091},
-                  $icon           = 'mapob_poi',
-                  $mouseover      = {1972092414, 1091},
-                  $mouseover_icon = 'mapob_poi',
-                  $active         = true,
-                  $callback       = On_Destroy_POI,
-                ]" />
             </do_elseif>
             <do_else>
-              <set_value name="$text" exact="{1972092414, 1012}.['%s'.[event.param.$object.knownname]]" />
               <signal_cue_instantly
                 cue="md.Interact_Menu_API.Add_Action"
                 param="table[
                   $id             = 'player_poi_create_poi',
                   $section        = $menuSection,
-                  $text           = $text,
+                  $text           = {1972092414, 1012},
                   $icon           = 'mapob_poi',
-                  $mouseover      = $text,
-                  $mouseover_icon = 'mapob_poi',
                   $active         = true,
                   $callback       = On_Create_POI_On_Object,
                 ]" />
-              <remove_value name="$text" />
             </do_else>
             <remove_value name="$sector" />
             <remove_value name="$poi" />
@@ -168,7 +132,9 @@
                 <position x="$offset.x" y="$offset.y" z="$offset.z" />
               </create_object>
               <do_if value="$poi and @$poi != null">
-                <set_object_name object="$poi" name="'{1972092414, 111}'.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
+                <set_value name="$name" exact="{1972092414, 111}.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
+                <set_object_name object="$poi" name="$name" />
+                <remove_value name="$name" />
               </do_if>
             </do_else>
             <remove_value name="$sector" />
@@ -194,29 +160,13 @@
                 <safepos object="$object" />
               </create_object>
               <do_if value="$poi and @$poi != null">
-                <set_object_name object="$poi" name="'{1972092414, 112}'.[$object.knownname, $object.idcode, $sector.knownname]" />
+                <set_value name="$name" exact="{1972092414, 112}.[$object.knownname, $object.idcode, $sector.knownname]" />
+                <set_object_name object="$poi" name="$name" />
+                <remove_value name="$name" />
               </do_if>
             </do_else>
             <remove_value name="$sector" />
             <remove_value name="$object" />
-          </actions>
-        </cue>
-
-        <cue name="On_Destroy_POI" instantiate="true" version="1">
-          <conditions>
-            <event_cue_signalled />
-          </conditions>
-          <actions>
-            <debug_text text="'PlayerPoi: On_Destroy_POI invoked with param: %s'.[event.param]" chance="100" filter="scripts" />
-            <set_value name="$poi" exact="event.param.$object" />
-            <do_if value="@$poi == null or @$poi.macro != macro.player_poi_01_macro">
-              <debug_text text="'PlayerPoi: destroy invoked without POI reference.'"
-                chance="100" filter="scripts" />
-            </do_if>
-            <do_else>
-              <destroy_object object="$poi" explosion="false" />
-            </do_else>
-            <remove_value name="$poi" />
           </actions>
         </cue>
 
