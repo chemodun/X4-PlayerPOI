@@ -1,0 +1,168 @@
+[size=4][u]Player POI[/u][/size]
+
+Implementation of player POI (point of interest) system, allowing players to create and manage custom POIs in on the map and in space.
+
+[size=3][u][b]Features[/b][/u][/size]
+[list]
+[*] [b]Creation of custom POIs[/b] on the map at any location.
+[*] [b]Assignment of POIs to objects[/b] on map or in space (non player stations and gates).
+[*] [b]Automatic name generation[/b] for POIs based on the assigned object or location.
+[*] [b]POI management tab[/b] in the Property Owned Information.
+[*] [b]Context menu[/b] for POIs in space and on the map, allowing to rename or self-destruct POIs.
+[*] [b]Optimized rename window location[/b] to be close to the selected POI.
+[/list]
+[size=3][u][b]Requirements[/b][/u][/size]
+[list]
+[*] [b]X4: Foundations[/b]: Version 8.00HF3 or newer.
+[*] [b]UI Extensions and HUD[/b]: Version v8.0.4.0 or higher by [url=https://next.nexusmods.com/profile/kuertee?gameId=2659]kuertee[/url].
+[list]
+[*] Available on Nexus Mods: [url=https://www.nexusmods.com/x4foundations/mods/552]UI Extensions and HUD[/url]
+[/list]
+[*] [b]Mod Support APIs[/b]: Version 1.95 or higher by [url=https://next.nexusmods.com/profile/sirnukes?gameId=2659]SirNukes[/url].
+[list]
+[*] Available on Steam: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2042901274]SirNukes Mod Support APIs[/url]
+[*] Available on Nexus Mods: [url=https://www.nexusmods.com/x4foundations/mods/503]Mod Support APIs[/url]
+[/list]
+[/list]
+[size=3][u][b]Compatibility[/b][/u][/size]
+[list]
+[*] With [url=https://www.nexusmods.com/x4foundations/mods/842]Custom Tabs[/url] mod by [url=https://www.nexusmods.com/x4foundations/users/7018859]Mycu[/url]
+[/list]
+[size=3][u][b]Installation[/b][/u][/size]
+[list]
+[*] [b]Steam Workshop[/b]: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=]Player POI[/url]
+[*] [b]Nexus Mods[/b]: [url=https://www.nexusmods.com/x4foundations/mods/]Player POI[/url]
+[/list]
+[size=3][u][b]Usage[/b][/u][/size]
+
+[size=3][u][i]Creating a POI on the map[/i][/u][/size]
+
+To create a [b]POI[/b] on the map, simply open the holomap, right-click on any location and select [b]Create POI at ...[/b] from the context menu. A new POI will be created at the selected location with a default name based on the coordinates.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/create_poi_on_map_at_any_point.png[/img]
+
+The created [b]POI[/b] will be visible on the map and in the [b]Player POI[/b] tab of the Property Owned Information, where you can manage it (like renaming or self-destructing it) using the context menu.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/created_poi_at_point_on_map.png[/img]
+
+Additionally, you can assign a [b]POI[/b] to an object on the map (like a station or a gate) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
+
+Context menu for assigning a [b]POI[/b] to an object on the map is exactly the same as in space, see the next section for details.
+
+[size=3][u][i]Creating a POI in space[/i][/u][/size]
+
+In space, you can only assign a [b]POI[/b] to an object (like a station or a gate) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/assign_poi_on_object_in_space.png[/img]
+
+The created [b]POI[/b] will be visible in space, on a map and in the [b]Player POI[/b] tab of the Property Owned Information, where you can manage it (like renaming or self-destructing it) using the context menu.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_assigned_on_object_in_space.png[/img]
+
+[size=3][u][i]Managing POIs[/i][/u][/size]
+
+You can manage your created [b]POIs[/b] in space, on map and in the [b]Player POI[/b] tab of the Property Owned Information.
+All management actions (like renaming or self-destructing a [b]POI[/b]) are available in the context menu, which can be accessed by right-clicking on a [b]POI[/b] in space, on the map or in the tab.
+
+[size=3][u]Managing POIs in space[/u][/size]
+
+There is how the context menu for a [b]POI[/b] in space looks like:
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_in_space.png[/img]
+
+[size=2][u][i]Renaming a POI in space[/i][/u][/size]
+
+When you select "Rename" from the context menu of a [b]POI[/b] in space, a rename window will open, allowing you to enter a new name for the [b]POI[/b].
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_rename_in_space.png[/img]
+
+As soon as you enter a new name and confirm it, the [b]POI[/b] will be renamed.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_renamed_in_space.png[/img]
+
+[size=3][u]Managing POIs on the map[/u][/size]
+
+Context menu for a [b]POI[/b] on the map is the same as in space, but with an additional option to center the map on the [b]POI[/b]:
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_on_map.png[/img]
+
+[size=3][u]Managing POIs in the Player POI tab[/u][/size]
+
+There is an additional tab in the Property Owned Information called [b]Player POI[/b], where you can see all your created [b]POIs[/b] in one place. You can also manage your [b]POIs[/b] from this tab using the same context menu as in space and on the map.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_tab_in_property_owned.png[/img]
+
+[size=2][u][i]Self-destructing a POI[/i][/u][/size]
+
+When you select "Self-destruct" from the context menu of a [b]POI[/b], the [b]POI[/b] will be immediately removed from the game. This action cannot be undone, so use it with caution.
+There  is an example of a [b]POI[/b] that is about to be self-destructed in the following screenshot:
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_on_tab.png[/img]
+
+And here is how the list of [b]POIs[/b] looks like after the [b]POI[/b] has been self-destructed:
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_tab_after_self_destruct.png[/img]
+
+[size=2][u][i]Renaming a POI from the "Player POI" tab[/i][/u][/size]
+
+When you select "Rename" from the context menu of a [b]POI[/b] in the [b]Player POI[/b] tab, a rename window will open, allowing you to enter a new name for the [b]POI[/b].
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_rename_on_tab.png[/img]
+
+As soon as you enter a new name and confirm it, the [b]POI[/b] will be renamed.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_renamed_on_tab.png[/img]
+
+[size=2][u][i]Player POI tab in the Property Owned Information[/i][/u][/size]
+
+One more example of the [b]Player POI[/b] tab in the Property Owned Information, showing several created [b]POIs[/b] in space and on the map:
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_tab_and_map.png[/img]
+
+[size=3][u][i]Options[/i][/u][/size]
+
+You can configure the mod in the options menu, which can be accessed from the [b]Player POI[/b] item in [b]Extension Options[/b]  menu.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/extension_options.png[/img]
+
+In the options menu, you can enable or disable [b]optimized[/b] rename window location, which will make the rename window appear near the selected [b]POI[/b] instead of the center of the screen.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_options.png[/img]
+
+There are two screenshots showing the difference between [b]optimized[/b] and [b]standard[/b] rename window location:
+[list]
+[*] [b]Optimized[/b] rename window location (enabled):
+[/list]
+  [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/rename_optimized_position.png[/img]
+[list][*] [b]Standard[/b] rename window location (disabled):
+[/list]
+  [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/rename_standard_position.png[/img]
+
+In addition, for the resolving issues, you can enable debug logging in the options menu, which will log detailed information about the mod's operations to the X4 log file. This can be helpful for troubleshooting and understanding how the mod works.
+
+[size=3][u][b]Video[/b][/u][/size]
+
+Video demonstration of the . Version 1.00
+[youtube]0[/youtube]
+
+[size=3][u][b]Credits[/b][/u][/size]
+[list]
+[*] [b]Author[/b]: Chem O`Dun, on [url=https://next.nexusmods.com/profile/ChemODun/mods?gameId=2659]Nexus Mods[/url] and [url=https://steamcommunity.com/id/chemodun/myworkshopfiles/?appid=392160]Steam Workshop[/url]
+[*] [i]"X4: Foundations"[/i] is a trademark of [url=https://www.egosoft.com]Egosoft[/url].
+[/list]
+[size=3][u][b]Acknowledgements[/b][/u][/size]
+[list]
+[*] [url=https://www.egosoft.com]EGOSOFT[/url] — for the X series.
+[*] [url=https://next.nexusmods.com/profile/kuertee?gameId=2659]kuertee[/url] — for the [b]UI Extensions and HUD[/b] that makes this extension possible.
+[*] [url=https://next.nexusmods.com/profile/sirnukes?gameId=2659]SirNukes[/url] — for the [b]Mod Support APIs[/b] that power the UI hooks.
+[/list]
+[size=3][u][b]Changelog[/b][/u][/size]
+
+
+[size=3][u][i][1.00] - 2026-02-??[/i][/u][/size]
+[list]
+[*] [b]Added[/b]
+[list]
+[*] Initial public version
+[/list]
+[/list]
