@@ -5,7 +5,6 @@
     <cue name="Main" version="1">
       <actions>
         <set_value name="$isInitializedAt" exact="null" />
-        <set_value name="$menuSection" exact="'order'" />
       </actions>
       <cues>
         <cue name="On_Reload" instantiate="true" version="1">
@@ -76,7 +75,7 @@
                 cue="md.Interact_Menu_API.Add_Action"
                 param="table[
                   $id             = 'player_poi_create_poi',
-                  $section        = $menuSection,
+                  $section        = 'order',
                   $text           = $text,
                   $icon           = 'mapob_poi',
                   $mouseover      = $text,
@@ -90,7 +89,7 @@
                 cue="md.Interact_Menu_API.Add_Action"
                 param="table[
                   $id             = 'player_poi_rename_poi',
-                  $section        = $menuSection,
+                  $section        = 'order',
                   $text           = {1001, 1114},
                   $active         = true,
                   $callback       = On_Rename_POI,
@@ -101,7 +100,7 @@
                 cue="md.Interact_Menu_API.Add_Action"
                 param="table[
                   $id             = 'player_poi_create_poi',
-                  $section        = $menuSection,
+                  $section        = if @event.param.$object.isclass.{class.station} then 'interaction' else 'order',
                   $text           = {1972092414, 1012},
                   $icon           = 'mapob_poi',
                   $active         = true,
