@@ -2,5 +2,21 @@
 <!-- Italian -->
 <diff>
   <add sel="/language">
+    <page id="1972092414" voice="no" title="Player POI" descr="Player POI">
+      <t id="1">Player POI</t>
+      <t id="2">Player POI</t>
+      <t id="100">POI</t>
+      <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
+      <t id="102">%s \(%s\), %s</t>
+      <t id="111">{1972092414, 100}: {1972092414, 101}</t>
+      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="1011">Crea POI a: {1972092414, 101}</t>
+      <t id="1012">Assegna POI</t>
+      <t id="90001">Ottimizza la posizione della finestra di rinomina</t>
+      <t id="90009">Livello di debug:</t>
+      <t id="90091">Nessun debug</t>
+      <t id="90092">Debug</t>
+      <t id="90093">Traccia</t>
+    </page>
   </add>
 </diff>
