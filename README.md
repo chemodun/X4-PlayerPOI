@@ -24,10 +24,15 @@ Implementation of player POI (point of interest) system, allowing players to cre
 
 - With [Custom Tabs](https://www.nexusmods.com/x4foundations/mods/842) mod by [Mycu](https://www.nexusmods.com/x4foundations/users/7018859)
 
+### Limitations
+
+- As there is standard `Rename` window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
+- `POI` is not attached to the assigned object, so there is no limitation on count of `POIs` that can be assigned to the same object, but also it means that if the assigned object is moved or destroyed, the `POI` will remain in its original location and will not be updated or removed.
+
 ## Installation
 
 - **Steam Workshop**: [Player POI](https://steamcommunity.com/sharedfiles/filedetails/?id=)
-- **Nexus Mods**: [Player POI](https://www.nexusmods.com/x4foundations/mods/)
+- **Nexus Mods**: [Player POI](https://www.nexusmods.com/x4foundations/mods/1990)
 
 ## Usage
 
@@ -138,7 +143,7 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 
 ## Video
 
-[Video demonstration of the . Version 1.00](https://www.youtube.com/watch?v=0)
+[Video demonstration of Player POI](https://www.youtube.com/watch?v=YpPnR0eNdJg)
 
 ## Credits
 
@@ -154,7 +159,7 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 ## Changelog
 
 
-### [1.00] - 2026-02-??
+### [8.00.01] - 2026-02-24
 
 - **Added**
   - Initial public version
