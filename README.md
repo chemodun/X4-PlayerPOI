@@ -31,7 +31,7 @@ Implementation of player POI (point of interest) system, allowing players to cre
 
 ## Installation
 
-- **Steam Workshop**: [Player POI](https://steamcommunity.com/sharedfiles/filedetails/?id=)
+- **Steam Workshop**: [Player POI](https://steamcommunity.com/sharedfiles/filedetails/?id=3672692813)
 - **Nexus Mods**: [Player POI](https://www.nexusmods.com/x4foundations/mods/1990)
 
 ## Usage
