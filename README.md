@@ -50,8 +50,8 @@ Implementation of player POI (point of interest) system, allowing players to cre
 
 ![alt text](docs/images/extension_options.png)
 ![alt text](docs/images/poi_options.png)
-
-
+![alt text](docs/images/rename_optimized_position.png)
+![alt text](docs/images/rename_standard_position.png)
 
 ## Video
 
