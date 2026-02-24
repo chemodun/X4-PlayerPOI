@@ -66,7 +66,7 @@ function playerPoi.Init(menuMap, menuInteract)
   menuMap.registerCallback("createPropertyOwned_on_createPropertySection_unassignedships", playerPoi.displayTabData)
   menuMap.registerCallback("onRenderTargetSelect_on_propertyowned_newmode", playerPoi.selectTabForPlayerPoiItems)
   menuInteract.registerCallback("draw_on_start", playerPoi.getMousePosition)
-  menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeActivateDeactivateAction)
+  menuInteract.registerCallback("prepareActions_prepare_custom_action", playerPoi.removeSomeActions)
   RegisterEvent("PlayerPoi.OnRename", playerPoi.onRename)
   AddUITriggeredEvent("PlayerPoi", "Reloaded")
   playerPoi.setupTab()
@@ -165,7 +165,7 @@ function playerPoi.getMousePosition(config)
   playerPoi.posY = menu.posY
 end
 
-function playerPoi.removeActivateDeactivateAction(actions, definedActions)
+function playerPoi.removeSomeActions(actions, definedActions)
   local menu = playerPoi.menuInteract
   if menu == nil then
     debug("Menu interact is not initialized")
@@ -181,7 +181,7 @@ function playerPoi.removeActivateDeactivateAction(actions, definedActions)
     trace("Removing activate/deactivate actions for player POI component")
     for i = #actions, 1, -1 do
       local action = actions[i]
-      if action.actiontype == "detach" then
+    if action.actiontype == "detach" or string.find(action.actiontype, "collectdeployable") then
         trace("Removing action with actiontype: " .. tostring(action.actiontype))
         table.remove(actions, i)
         definedActions[action.actiontype] = nil
