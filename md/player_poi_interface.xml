@@ -47,15 +47,11 @@
         <cue name="Add_Menu_Actions" instantiate="true" version="1">
           <conditions>
             <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with param: %s'.[event.param]" debugchance="$debugChance" filter="scripts" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions invoked with object: %s, and class: %s'.[@event.param.$object, @event.param.$object.class  ]" debugchance="$debugChance" filter="scripts" />
             <check_value value="@player.holomap.isopen or @event.param.$showPlayerInteractions" />
             <check_value value="event.param.$object? and @event.param.$object != null" />
             <set_value name="$sector" exact="null" />
             <set_value name="$poi" exact="null" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions 1'" chance="$debugChance" filter="scripts" />
             <check_value value="@event.param.$selectedplayerships.count == null or @event.param.$selectedplayerships.count == 0 or @event.param.$selectedplayerships.count == 1 and @event.param.$showPlayerInteractions == 1" />
-            <debug_text text="'PlayerPoi: Add_Menu_Actions 2'" chance="$debugChance" filter="scripts" />
             <check_any>
               <check_all>
                 <check_value value="@event.param.$selectedotherobjects.count == null or @event.param.$selectedotherobjects.count == 0" />
