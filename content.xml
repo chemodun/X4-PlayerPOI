@@ -3,55 +3,55 @@
   id=""
   name="Player POI"
   author="Chem O`Dun"
-  version="100"
-  date="2025-02-28"
+  version="80001"
+  date="2025-02-24"
   save="false"
   lastupdate=""
   description="Provides an interface for creating and managing player points of interest (POIs) in the Galaxy map.">
   <text language="7"
-    description=""></text>
+    description="Provides an interface for creating and managing player points of interest (POIs) in the Galaxy map."></text>
   <!-- French -->
   <text language="33"
-    description=""></text>
+    description="Fournit une interface pour créer et gérer les points d'intérêt (POI) du joueur sur la carte de la Galaxie."></text>
   <!-- Spanish -->
   <text language="34"
-    description=""></text>
+    description="Proporciona una interfaz para crear y gestionar puntos de interés (POI) del jugador en el mapa de la Galaxia."></text>
   <!-- Italian -->
   <text language="39"
-    description=""></text>
+    description="Fornisce un'interfaccia per creare e gestire i punti di interesse (POI) del giocatore nella mappa della Galassia."></text>
   <!-- Czech -->
   <text language="42"
-    description=""></text>
+    description="Poskytuje rozhraní pro vytváření a správu hráčských bodů zájmu (POI) na mapě Galaxie."></text>
   <!-- English -->
   <text language="44"
     description="Provides an interface for creating and managing player points of interest (POIs) in the Galaxy map."></text>
   <!-- Polish -->
   <text language="48"
-    description=""></text>
+    description="Zapewnia interfejs do tworzenia i zarządzania graczowymi punktami zainteresowania (POI) na mapie Galaktyki."></text>
   <!-- German -->
   <text language="49"
-    description=""></text>
+    description="Bietet eine Oberfläche zum Erstellen und Verwalten von Spieler-Interessenpunkten (POIs) auf der Galaxiekarte."></text>
   <!-- Portuguese -->
   <text language="55"
-    description=""></text>
+    description="Fornece uma interface para criar e gerenciar pontos de interesse (POIs) do jogador no mapa da Galáxia."></text>
   <!-- Japanese -->
   <text language="81"
-    description=""></text>
+    description="ギャラクシーマップでプレイヤーのポイント・オブ・インタレスト（POI）を作成・管理するためのインターフェースを提供します。"></text>
   <!-- Korean -->
   <text language="82"
-    description=""></text>
+    description="갤럭시 맵에서 플레이어 관심 지점(POI)을 생성하고 관리하는 인터페이스를 제공합니다."></text>
   <!-- Chinese -->
   <text language="86"
-    description=""></text>
+    description="提供在银河地图中创建和管理玩家兴趣点（POI）的界面。"></text>
   <!-- Bengali -->
   <text language="88"
-    description=""></text>
+    description="গ্যালাক্সি মানচিত্রে খেলোয়াড়ের আগ্রহের পয়েন্ট (POI) তৈরি এবং পরিচালনার জন্য একটি ইন্টারফেস প্রদান করে।"></text>
   <!-- Turkish -->
   <text language="90"
-    description=""></text>
+    description="Galaksi haritasında oyuncu ilgi noktaları (POI) oluşturmak ve yönetmek için bir arayüz sağlar."></text>
   <!-- Ukrainian -->
   <text language="380"
-    description=""></text>
+    description="Надає інтерфейс для створення та управління точками інтересу гравця (POI) на карті Галактики."></text>
   <dependency version="800"></dependency>
   <dependency id="ws_2042901274" optional="false" name="SirNukes Mod Support APIs" version="193"></dependency>
   <dependency id="kuerteeUIExtensionsAndHUD" optional="false" name="kuertee UI Extensions and HUD" version="804"></dependency>
