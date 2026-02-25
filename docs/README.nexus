@@ -161,10 +161,12 @@ There are two screenshots showing the difference between [b]optimized[/b] and [b
 In addition, for the resolving issues, you can enable debug logging in the options menu, which will log detailed information about the mod's operations to the X4 log file. This can be helpful for troubleshooting and understanding how the mod works.
 
 [size=3][u][b]Video[/b][/u][/size]
-
-Video demonstration of Player POI
+[list]
+[*] Video demonstration of Player POI
 [youtube]YpPnR0eNdJg[/youtube]
-
+[*] Video demonstration of Automatic POI assignment
+[youtube]RK7KkX5M588[/youtube]
+[/list]
 [size=3][u][b]Credits[/b][/u][/size]
 [list]
 [*] [b]Author[/b]: Chem O`Dun, on [url=https://next.nexusmods.com/profile/ChemODun/mods?gameId=2659]Nexus Mods[/url] and [url=https://steamcommunity.com/id/chemodun/myworkshopfiles/?appid=392160]Steam Workshop[/url]
