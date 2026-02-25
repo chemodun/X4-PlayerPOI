@@ -51,8 +51,7 @@
             </do_if>
             <set_value name="$debugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
             <set_value name="$poiDistanceAdditive" exact="20m" />
-            <set_value name="$poiDistanceThresholdAdditive" exact="30m" />
-            <set_value name="$poiObjectMinRadius" exact="150m" />
+            <set_value name="$poiObjectMinRadius" exact="200m" />
           </actions>
         </library>
 
@@ -96,6 +95,12 @@
                 <check_any>
                   <check_value value="@event.param.$object.isclass.{class.station}" />
                   <check_value value="@event.param.$object.isclass.{class.gate}" />
+                  <check_value value="@event.param.$object.isclass.{class.lockbox}" />
+                  <check_all>
+                    <check_value value="@event.param.$object.isclass.{class.ship}" />
+                    <check_value value="not @event.param.$object.isclass.{class.ship_xs}" />
+                    <check_value value="@event.param.$object.owner == faction.ownerless" />
+                  </check_all>
                 </check_any>
               </check_all>
             </check_any>

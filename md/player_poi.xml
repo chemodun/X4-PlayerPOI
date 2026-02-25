@@ -97,6 +97,58 @@
           </actions>
         </cue>
 
+        <cue name="On_Found_Abandoned_Ship" instantiate="true" version="1">
+          <conditions>
+            <event_object_signalled object="player.entity" param="'PlayerPoi.FoundAbandonedShip'" />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Found_Abandoned_Ship invoked. Ship: %s, signal: %s'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
+            <do_if value="event.param2? and @event.param2 != null">
+              <do_if value="@event.param3 != 'claim' or @player.entity.$playerPoi.$assignAbandonedNoClaim == false">
+                <debug_text text="'PlayerPoi: Found abandoned ship %s with signal %s, and assignAbandonedNoClaim is false, or signal is not claim. Processing for POI assignment.'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
+                <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                  <param name="object" value="@event.param2" />
+                </run_actions>
+                <do_if value="$isAssigned" negate="true">
+                  <debug_text text="'PlayerPoi: no nearby POI found for newly found abandoned ship %s. Creating POI at ship location.'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
+                  <run_actions ref="Assign_POI_On_Object">
+                    <param name="object" value="@event.param2" />
+                    <param name="prefix" value="{1972092414, 201}" />
+                  </run_actions>
+                </do_if>
+              </do_if>
+              <do_else>
+                <debug_text text="'PlayerPoi: Found abandoned ship %s with signal %s, but assignAbandonedNoClaim is true and signal is claim. Not creating POI.'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
+              </do_else>
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="On_Found_Lockbox" instantiate="true" version="1">
+          <conditions>
+            <event_object_signalled object="player.entity" param="'PlayerPoi.FoundLockbox'" />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Found_Lockbox invoked. Lockbox: %s, signal: %s'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
+            <do_if value="event.param2? and @event.param2 != null and @event.param3 != 'collect' and @event.param3 != 'wait'">
+              <debug_text text="'PlayerPoi: Found lockbox %s. Processing for POI assignment.'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
+              <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                <param name="object" value="@event.param2" />
+              </run_actions>
+              <do_if value="$isAssigned" negate="true">
+                <debug_text text="'PlayerPoi: no nearby POI found for newly found lockbox %s. Creating POI at lockbox location.'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
+                <run_actions ref="Assign_POI_On_Object">
+                  <param name="object" value="@event.param2" />
+                  <param name="prefix" value="{20109, 4001}" />
+                </run_actions>
+              </do_if>
+            </do_if>
+          </actions>
+        </cue>
+
+
         <library name="Is_POI_Assigned_On_Object" purpose="run_actions" version="1">
           <params>
             <param name="object" />
@@ -109,7 +161,9 @@
               <debug_text text="'PlayerPoi: Is_POI_Assigned_On_Object. Found nearby POI: %s'.[@$poiNearby.debugname]" chance="$debugChance" filter="scripts" />
               <do_if value="$poiNearby? and @$poiNearby != null">
                 <set_value name="$distance" exact="$poiNearby.distanceto.{$object}" />
-                <set_value name="$threshold" exact="[@$object.size / 2, $poiObjectMinRadius].max + $poiDistanceThresholdAdditive" />
+                <set_value name="$threshold" exact="[@$object.size / 2, $poiObjectMinRadius].max + $poiDistanceAdditive * 2" />
+                <set_value name="$deltaZ" exact="if $poiObjectMinRadius gt @$object.size then $poiObjectMinRadius else 0" />
+                <set_value name="$threshold" exact="$threshold + $deltaZ / 2" />
                 <set_value name="$result" exact="$distance le $threshold" />
                 <debug_text text="'PlayerPoi: Is_POI_Assigned_On_Object. POI exist on distance %s to object %s, with threshold %s, and result %s'.
                 [@$distance, @$object.debugname, @$threshold, @$result]" chance="$debugChance" filter="scripts" />
@@ -132,8 +186,9 @@
             <do_if value="$object? and @$object != null and $object.exists">
               <set_value name="$distance" exact="[@$object.size / 2, $poiObjectMinRadius].max + $poiDistanceAdditive" />
               <set_value name="$sector" exact="$object.sector" />
+              <set_value name="$deltaZ" exact="if $poiObjectMinRadius gt @$object.size then $poiObjectMinRadius else 0" />
               <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
-                <position x="$object.relativeposition.{$sector}.x" y="$object.relativeposition.{$sector}.y + $distance" z="$object.relativeposition.{$sector}.z" />
+                <position x="$object.relativeposition.{$sector}.x" y="$object.relativeposition.{$sector}.y + $distance" z="$object.relativeposition.{$sector}.z + $deltaZ" />
               </create_object>
               <do_if value="$poi? and @$poi != null">
                 <set_value name="$name" exact="{1972092414, 112}.[$prefix, $object.knownname, $object.idcode, $sector.knownname]" />

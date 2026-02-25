@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<diff>
+  <add sel="/aiscript/attention[@min='unknown']/actions/do_if[@value='@$response']">
+    <signal_objects object="player.entity" param="'PlayerPoi.FoundLockbox'" param2="$lockbox" param3="$response" />
+  </add>
+</diff>

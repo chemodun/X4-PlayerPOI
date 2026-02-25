@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<diff>
+  <add sel="/aiscript/attention[@min='unknown']/actions">
+    <signal_objects object="player.entity" param="'PlayerPoi.FoundAbandonedShip'" param2="$abandonedship" param3="$response" />
+  </add>
+</diff>
