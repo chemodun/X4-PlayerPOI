@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Verlassen</t>
+      <t id="203">Versteckt</t>
       <t id="1011">POI erstellen bei: {1972092414, 101}</t>
       <t id="1012">POI zuweisen</t>
-      <t id="90001">Position des Umbenennungsfensters optimieren</t>
-      <t id="90009">Debug-Stufe:</t>
-      <t id="90091">Kein Debug</t>
-      <t id="90092">Debug</t>
-      <t id="90093">Trace</t>
+      <t id="90000">Automatische POI-Zuweisung wenn:</t>
+      <t id="90011">Nur wenn kein Anspruchsverfahren eingeleitet wurde</t>
+      <t id="90100">Versteckte Schiffe:</t>
+      <t id="90101">POI zuweisen</t>
+      <t id="90102">Auf allen, nicht nur auf bekannten</t>
+      <t id="90900">Sonstiges</t>
+      <t id="90910">Position des Umbenennungsfensters optimieren</t>
+      <t id="90990">Debug-Stufe:</t>
+      <t id="90991">Kein Debug</t>
+      <t id="90992">Debug</t>
+      <t id="90993">Trace</t>
+      <t id="91010">Wenn aktiviert, werden POIs jedem neu entdeckten verlassenen Schiff sowie allen zuvor bekannten zugewiesen</t>
+      <t id="91011">Sollen Schiffe, die beansprucht werden, einen POI zugewiesen bekommen?</t>
+      <t id="91020">Wenn aktiviert, werden POIs jeder neu entdeckten Kiste sowie allen zuvor bekannten zugewiesen</t>
+      <t id="91101">Wird POIs einigen Objekten zuweisen. Wer weiß welchen?</t>
+      <t id="91102">Wirklich seltsame Checkbox. Wer weiß, was sie macht?</t>
+      <t id="91910">Das Umbenennungsfenster erscheint in der Nähe des ausgewählten POI statt an der letzten Mausposition im Kontextmenü</t>
     </page>
   </add>
 </diff>

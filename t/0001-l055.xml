@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Abandonado</t>
+      <t id="203">Oculto</t>
       <t id="1011">Criar POI em: {1972092414, 101}</t>
       <t id="1012">Atribuir POI</t>
-      <t id="90001">Otimizar a localização da janela de renomeação</t>
-      <t id="90009">Nível de depuração:</t>
-      <t id="90091">Sem depuração</t>
-      <t id="90092">Depuração</t>
-      <t id="90093">Rastreamento</t>
+      <t id="90000">Atribuição automática de POI quando:</t>
+      <t id="90011">Apenas se nenhum procedimento de reivindicação foi iniciado</t>
+      <t id="90100">Naves ocultas:</t>
+      <t id="90101">Atribuir POI</t>
+      <t id="90102">Em todas, não apenas nas conhecidas</t>
+      <t id="90900">Outro</t>
+      <t id="90910">Otimizar a localização da janela de renomeação</t>
+      <t id="90990">Nível de depuração:</t>
+      <t id="90991">Sem depuração</t>
+      <t id="90992">Depuração</t>
+      <t id="90993">Rastreamento</t>
+      <t id="91010">Quando ativado, atribuirá POIs a cada nave abandonada recém-descoberta, bem como a todas as anteriormente conhecidas</t>
+      <t id="91011">As naves que serão reivindicadas devem ter um POI atribuído?</t>
+      <t id="91020">Quando ativado, atribuirá POIs a cada caixa recém-descoberta, bem como a todas as anteriormente conhecidas</t>
+      <t id="91101">Atribuirá POIs a alguns objetos. Quem sabe quais?</t>
+      <t id="91102">Caixa de seleção realmente estranha. Quem sabe o que faz?</t>
+      <t id="91910">A janela de renomeação aparecerá perto do POI selecionado em vez da última posição do mouse no menu de contexto</t>
     </page>
   </add>
 </diff>

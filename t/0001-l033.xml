@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
-      <t id="1011">Créer un POI à : {1972092414, 101}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Abandonné</t>
+      <t id="203">Caché</t>
+      <t id="1011">Créer un POI à : {1972092414, 101}</t>
       <t id="1012">Assigner un POI</t>
-      <t id="90001">Optimiser la position de la fenêtre de renommage</t>
-      <t id="90009">Niveau de débogage :</t>
-      <t id="90091">Aucun débogage</t>
-      <t id="90092">Débogage</t>
-      <t id="90093">Trace</t>
+      <t id="90000">Attribution automatique de POI quand :</t>
+      <t id="90011">Seulement si aucune procédure de revendication n'est initiée</t>
+      <t id="90100">Vaisseaux cachés :</t>
+      <t id="90101">Assigner un POI</t>
+      <t id="90102">Sur tous, pas seulement sur les connus</t>
+      <t id="90900">Autre</t>
+      <t id="90910">Optimiser la position de la fenêtre de renommage</t>
+      <t id="90990">Niveau de débogage :</t>
+      <t id="90991">Aucun débogage</t>
+      <t id="90992">Débogage</t>
+      <t id="90993">Trace</t>
+      <t id="91010">Lorsqu'activé, attribuera des POI à chaque vaisseau abandonné nouvellement découvert ainsi qu'à tous ceux déjà connus</t>
+      <t id="91011">Les vaisseaux qui seront revendiqués doivent-ils avoir un POI assigné ?</t>
+      <t id="91020">Lorsqu'activé, attribuera des POI à chaque coffre nouvellement découvert ainsi qu'à tous ceux déjà connus</t>
+      <t id="91101">Attribuera des POI à certains objets. Qui sait lesquels ?</t>
+      <t id="91102">Case à cocher vraiment étrange. Qui sait ce qu'elle fait ?</t>
+      <t id="91910">La fenêtre de renommage apparaîtra près du POI sélectionné au lieu de la dernière position de la souris dans le menu contextuel</t>
     </page>
   </add>
 </diff>

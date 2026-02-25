@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Abandonado</t>
+      <t id="203">Oculto</t>
       <t id="1011">Crear POI en: {1972092414, 101}</t>
       <t id="1012">Asignar POI</t>
-      <t id="90001">Optimizar la ubicación de la ventana de renombrar</t>
-      <t id="90009">Nivel de depuración:</t>
-      <t id="90091">Sin depuración</t>
-      <t id="90092">Depuración</t>
-      <t id="90093">Traza</t>
+      <t id="90000">Asignación automática de POI cuando:</t>
+      <t id="90011">Solo si no se ha iniciado ningún procedimiento de reclamación</t>
+      <t id="90100">Naves ocultas:</t>
+      <t id="90101">Asignar POI</t>
+      <t id="90102">En todas, no solo en las conocidas</t>
+      <t id="90900">Otro</t>
+      <t id="90910">Optimizar la ubicación de la ventana de renombrar</t>
+      <t id="90990">Nivel de depuración:</t>
+      <t id="90991">Sin depuración</t>
+      <t id="90992">Depuración</t>
+      <t id="90993">Traza</t>
+      <t id="91010">Cuando esté habilitado, asignará POIs a cada nave abandonada recién descubierta, así como a todas las ya conocidas</t>
+      <t id="91011">¿Las naves que serán reclamadas deberían tener un POI asignado?</t>
+      <t id="91020">Cuando esté habilitado, asignará POIs a cada caja fuerte recién descubierta, así como a todas las ya conocidas</t>
+      <t id="91101">Asignará POIs a algunos objetos. ¿Quién sabe cuáles?</t>
+      <t id="91102">Casilla de verificación realmente extraña. ¿Quién sabe lo que hace?</t>
+      <t id="91910">La ventana de renombrar aparecerá cerca del POI seleccionado en lugar de la última posición del ratón en el menú contextual</t>
     </page>
   </add>
 </diff>

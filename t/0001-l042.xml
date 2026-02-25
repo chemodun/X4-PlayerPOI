@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Opuštěný</t>
+      <t id="203">Skrytý</t>
       <t id="1011">Vytvořit POI na: {1972092414, 101}</t>
       <t id="1012">Přiřadit POI</t>
-      <t id="90001">Optimalizovat polohu okna přejmenování</t>
-      <t id="90009">Úrově ladění:</t>
-      <t id="90091">Bez ladění</t>
-      <t id="90092">Ladění</t>
-      <t id="90093">Trasování</t>
+      <t id="90000">Automatické přiřazení POI když:</t>
+      <t id="90011">Pouze pokud nebyl zahájen žádný postup nároku</t>
+      <t id="90100">Skryté lodě:</t>
+      <t id="90101">Přiřadit POI</t>
+      <t id="90102">Na všechny, nejen na známé</t>
+      <t id="90900">Jiné</t>
+      <t id="90910">Optimalizovat polohu okna přejmenování</t>
+      <t id="90990">Úroveň ladění:</t>
+      <t id="90991">Bez ladění</t>
+      <t id="90992">Ladění</t>
+      <t id="90993">Trasování</t>
+      <t id="91010">Pokud je povoleno, přiřadí POI každé nově objevené opuštěné lodi, stejně jako všem již známým</t>
+      <t id="91011">Měly by mít lodě, které budou nárokované, přiřazený POI?</t>
+      <t id="91020">Pokud je povoleno, přiřadí POI každé nově objevené bedně, stejně jako všem již známým</t>
+      <t id="91101">Přiřadí POI některým objektům. Kdo ví kterým?</t>
+      <t id="91102">Opravdu divné zaškrtávací pole. Kdo ví, co dělá?</t>
+      <t id="91910">Okno přejmenování se objeví poblíž vybraného POI místo poslední pozice myši v kontextovém menu</t>
     </page>
   </add>
 </diff>

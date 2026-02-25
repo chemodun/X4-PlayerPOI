@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Porzucony</t>
+      <t id="203">Ukryty</t>
       <t id="1011">Utwórz POI w: {1972092414, 101}</t>
       <t id="1012">Przypisz POI</t>
-      <t id="90001">Optymalizuj pozycję okna zmiany nazwy</t>
-      <t id="90009">Poziom debugowania:</t>
-      <t id="90091">Brak debugowania</t>
-      <t id="90092">Debugowanie</t>
-      <t id="90093">śledzenie</t>
+      <t id="90000">Automatyczne przypisywanie POI gdy:</t>
+      <t id="90011">Tylko jeśli nie została zainicjowana procedura roszczenia</t>
+      <t id="90100">Ukryte statki:</t>
+      <t id="90101">Przypisz POI</t>
+      <t id="90102">Na wszystkich, nie tylko na znanych</t>
+      <t id="90900">Inne</t>
+      <t id="90910">Optymalizuj pozycję okna zmiany nazwy</t>
+      <t id="90990">Poziom debugowania:</t>
+      <t id="90991">Brak debugowania</t>
+      <t id="90992">Debugowanie</t>
+      <t id="90993">Śledzenie</t>
+      <t id="91010">Po włączeniu przypisze POI do każdego nowo odkrytego porzuconego statku, jak również do wszystkich wcześniej znanych</t>
+      <t id="91011">Czy statki, które będą zgłaszane do przejęcia, powinny mieć przypisany POI?</t>
+      <t id="91020">Po włączeniu przypisze POI do każdej nowo odkrytej skrzynki, jak również do wszystkich wcześniej znanych</t>
+      <t id="91101">Przypiszę POI do niektórych obiektów. Kto wie do jakich?</t>
+      <t id="91102">Naprawdę dziwne pole wyboru. Kto wie, co robi?</t>
+      <t id="91910">Okno zmiany nazwy pojawi się w pobliżu wybranego POI zamiast ostatniej pozycji myszy w menu kontekstowym</t>
     </page>
   </add>
 </diff>

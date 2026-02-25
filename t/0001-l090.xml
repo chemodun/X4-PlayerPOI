@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Terk edilmiş</t>
+      <t id="203">Gizli</t>
       <t id="1011">POI oluştur: {1972092414, 101}</t>
       <t id="1012">POI ata</t>
-      <t id="90001">Yeniden adlandırma penceresi konumunu optimize et</t>
-      <t id="90009">Hata ayıklama seviyesi:</t>
-      <t id="90091">Hata ayıklama yok</t>
-      <t id="90092">Hata ayıklama</t>
-      <t id="90093">İzleme</t>
+      <t id="90000">Otomatik POI ataması şu durumlarda:</t>
+      <t id="90011">Yalnızca talep prosedürü başlatılmadıysa</t>
+      <t id="90100">Gizli gemiler:</t>
+      <t id="90101">POI ata</t>
+      <t id="90102">Sadece bilinen değil, tümüne</t>
+      <t id="90900">Diğer</t>
+      <t id="90910">Yeniden adlandırma penceresi konumunu optimize et</t>
+      <t id="90990">Hata ayıklama seviyesi:</t>
+      <t id="90991">Hata ayıklama yok</t>
+      <t id="90992">Hata ayıklama</t>
+      <t id="90993">İzleme</t>
+      <t id="91010">Etkinleştirildiğinde, yeni keşfedilen her terk edilmiş gemiye ve daha önce bilinen tüm gemilere POI atayacaktır</t>
+      <t id="91011">Talep edilecek gemilere POI atanmalı mı?</t>
+      <t id="91020">Etkinleştirildiğinde, yeni keşfedilen her kilitli kutuya ve daha önce bilinen tüm kutulara POI atayacaktır</t>
+      <t id="91101">Bazı nesnelere POI atayacak. Hangilerine kim bilir?</t>
+      <t id="91102">Gerçekten garip bir onay kutusu. Ne yaptığını kim bilir?</t>
+      <t id="91910">Yeniden adlandırma penceresi, bağlam menüsündeki son fare konumu yerine seçilen POI'nin yakınında görünecektir</t>
     </page>
   </add>
 </diff>

@@ -9,14 +9,28 @@
       <t id="101">%s [X:%s {1001,108}, Y:%s {1001,108}, Z:%s {1001,108}]</t>
       <t id="102">%s \(%s\), %s</t>
       <t id="111">{1972092414, 100}: {1972092414, 101}</t>
-      <t id="112">{1972092414, 100}: {1972092414, 102}</t>
+      <t id="112">%s: {1972092414, 102}</t>
+      <t id="201">Abbandonato</t>
+      <t id="203">Nascosto</t>
       <t id="1011">Crea POI a: {1972092414, 101}</t>
       <t id="1012">Assegna POI</t>
-      <t id="90001">Ottimizza la posizione della finestra di rinomina</t>
-      <t id="90009">Livello di debug:</t>
-      <t id="90091">Nessun debug</t>
-      <t id="90092">Debug</t>
-      <t id="90093">Traccia</t>
+      <t id="90000">Assegnazione automatica POI quando:</t>
+      <t id="90011">Solo se non è stata avviata alcuna procedura di rivendicazione</t>
+      <t id="90100">Navi nascoste:</t>
+      <t id="90101">Assegna POI</t>
+      <t id="90102">Su tutte, non solo su quelle conosciute</t>
+      <t id="90900">Altro</t>
+      <t id="90910">Ottimizza la posizione della finestra di rinomina</t>
+      <t id="90990">Livello di debug:</t>
+      <t id="90991">Nessun debug</t>
+      <t id="90992">Debug</t>
+      <t id="90993">Traccia</t>
+      <t id="91010">Quando abilitato, assegnerà POI a ogni nave abbandonata appena scoperta così come a tutte quelle già conosciute</t>
+      <t id="91011">Le navi che verranno rivendicate dovrebbero avere un POI assegnato?</t>
+      <t id="91020">Quando abilitato, assegnerà POI a ogni forziere appena scoperto così come a tutti quelli già conosciuti</t>
+      <t id="91101">Assegnerà POI ad alcuni oggetti. Chi sa quali?</t>
+      <t id="91102">Casella di controllo davvero strana. Chi sa cosa fa?</t>
+      <t id="91910">La finestra di rinomina apparirà vicino al POI selezionato invece dell'ultima posizione del mouse nel menu contestuale</t>
     </page>
   </add>
 </diff>
