@@ -64,6 +64,7 @@
                   $col = 1,
                   $width = 'Helper.standardButtonHeight',
                   $height = 'Helper.standardButtonHeight',
+                  $mouseOverText = {1972092414, 91010},
                   $onClick = Player_Poi_On_Checkbox_Change
                 ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
@@ -71,6 +72,7 @@
                 $col = 2,
                 $colSpan = 5,
                 $text = {1015, 263},
+                $mouseOverText = {1972092414, 91010},
               ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
               param="table[
@@ -79,6 +81,7 @@
                 $col = 7,
                 $width = 'Helper.standardButtonHeight',
                 $height = 'Helper.standardButtonHeight',
+                $mouseOverText = {1972092414, 91011},
                 $onClick = Player_Poi_On_Checkbox_Change
                 ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
@@ -86,6 +89,7 @@
                 $col = 8,
                 $colSpan = 5,
                 $text = {1972092414, 90011},
+                $mouseOverText = {1972092414, 91011},
               ]" />
             <include_actions ref="Add_Empty_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
@@ -96,6 +100,7 @@
                   $col = 1,
                   $width = 'Helper.standardButtonHeight',
                   $height = 'Helper.standardButtonHeight',
+                  $mouseOverText = {1972092414, 91020},
                   $onClick = Player_Poi_On_Checkbox_Change
                 ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
@@ -103,6 +108,7 @@
                 $col = 2,
                 $colSpan = 11,
                 $text = {1015, 269},
+                $mouseOverText = {1972092414, 91020},
               ]" />
             <include_actions ref="Add_Empty_Row" />
 
@@ -123,6 +129,7 @@
                     $text   = {1972092414, 90101},
                     $halign = 'center',
                   ],
+                  $mouseOverText = {1972092414, 91101},
                   $onClick = Player_Poi_On_Button_Click,
               ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
@@ -132,6 +139,7 @@
                   $col = 7,
                   $width = 'Helper.standardButtonHeight',
                   $height = 'Helper.standardButtonHeight',
+                  $mouseOverText = {1972092414, 91102},
                   $onClick = Player_Poi_On_Checkbox_Change
                 ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
@@ -139,6 +147,7 @@
                 $col = 8,
                 $colSpan = 5,
                 $text = {1972092414, 90102},
+                $mouseOverText = {1972092414, 91102},
               ]" />
             <include_actions ref="Add_Empty_Row" />
 
@@ -154,6 +163,7 @@
                   $col = 1,
                   $width = 'Helper.standardButtonHeight',
                   $height = 'Helper.standardButtonHeight',
+                  $mouseOverText = {1972092414, 91910},
                   $onClick = Player_Poi_On_Checkbox_Change
                 ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
@@ -161,6 +171,7 @@
                 $col = 2,
                 $colSpan = 11,
                 $text = {1972092414, 90910},
+                $mouseOverText = {1972092414, 91910},
               ]" />
             <include_actions ref="Add_Empty_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />

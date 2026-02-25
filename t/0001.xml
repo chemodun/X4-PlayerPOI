@@ -24,6 +24,12 @@
       <t id="90991">No debug</t>
       <t id="90992">Debug</t>
       <t id="90993">Trace</t>
+      <t id="91010">When enabled, it will assign POIs to every newly discovered abandoned ship as well as to all previously known ones</t>
+      <t id="91011">Should ships that will be claimed have a POI assigned?</t>
+      <t id="91020">When enabled, it will assign POIs to every newly discovered lockbox as well as to all previously known ones</t>
+      <t id="91101">Will assign POI's on some objects. Who knows which ones?</t>
+      <t id="91102">Really strange checkbox. Who knows what it does?</t>
+      <t id="91910">Rename window will appear near the selected POI instead of the last mouse position in context menu</t>
     </page>
   </add>
 </diff>
