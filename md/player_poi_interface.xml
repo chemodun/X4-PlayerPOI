@@ -65,7 +65,7 @@
           </actions>
         </cue>
 
-        <cue name="Add_Menu_Actions" instantiate="true" version="1">
+        <cue name="Add_Menu_Actions" instantiate="true" version="2">
           <conditions>
             <event_cue_signalled cue="md.Interact_Menu_API.Get_Actions" />
             <check_value value="@player.holomap.isopen or @event.param.$showPlayerInteractions" />
@@ -188,7 +188,7 @@
           </actions>
         </cue>
 
-        <cue name="On_Create_POI_On_Object" instantiate="true" version="1">
+        <cue name="On_Create_POI_On_Object" instantiate="true" version="2">
           <conditions>
             <event_cue_signalled />
           </conditions>
