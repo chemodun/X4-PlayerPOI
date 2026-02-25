@@ -126,9 +126,23 @@ You can configure the mod in the options menu, which can be accessed from the `P
 
 ![Extension Options](docs/images/extension_options.png)
 
-In the options menu, you can enable or disable `optimized` rename window location, which will make the rename window appear near the selected `POI` instead of the center of the screen.
+Where the `Player POI` options menu looks like this:
 
 ![POI Options](docs/images/poi_options.png)
+
+#### Automatic POI assignment
+
+There are two options group under the `Automatic POI assignment when:` section:
+
+- `Found an abandoned ship` - when enabled, a `POI` will be automatically assigned to any found abandoned ship. But moreover, all already known abandoned ships will be assigned with `POI`s on enabling this option.
+
+  This option has an additional sub-option `Only if no claim procedure is initiated`, which will only assign `POI`s to abandoned ships that are not currently being claimed by player. This means that if the player set a claim procedure on an abandoned ship as default action or selected this action by event menu, the `POI` will not be assigned to such ship.
+
+- `Found a lockbox` - when enabled, a `POI` will be automatically assigned to any found lockbox. And similarly to previous, all already known lockboxes will be assigned with `POI`s on enabling this option.
+
+#### Other
+
+In this section, you can enable or disable `optimized` rename window location, which will make the rename window appear near the selected `POI` instead of the last mouse position.
 
 There are two screenshots showing the difference between `optimized` and `standard` rename window location:
 
@@ -158,6 +172,11 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 
 ## Changelog
 
+### [8.00.02] - 2026-02-25
+
+- **Added**
+  - Possibility to automatically assign POI's to found abandoned ships and lockboxes
+  - And another interesting feature that will not be mentioned here
 
 ### [8.00.01] - 2026-02-24
 
