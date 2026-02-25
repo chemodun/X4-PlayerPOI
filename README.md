@@ -7,6 +7,7 @@ Implementation of player POI (point of interest) system, allowing players to cre
 - **Creation of custom POIs** on the map at any location.
 - **Assignment of POIs to objects** on map or in space (non player stations and gates).
 - **Automatic name generation** for POIs based on the assigned object or location.
+- **Automatic POI assignment** to found abandoned ships and lockboxes (if configured).
 - **POI management tab** in the Property Owned Information.
 - **Context menu** for POIs in space and on the map, allowing to rename or self-destruct POIs.
 - **Optimized rename window location** to be close to the selected POI.
