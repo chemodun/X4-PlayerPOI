@@ -7,6 +7,7 @@ Implementation of player POI (point of interest) system, allowing players to cre
 [*] [b]Creation of custom POIs[/b] on the map at any location.
 [*] [b]Assignment of POIs to objects[/b] on map or in space (non player stations and gates).
 [*] [b]Automatic name generation[/b] for POIs based on the assigned object or location.
+[*] [b]Automatic POI assignment[/b] to found abandoned ships and lockboxes (if configured).
 [*] [b]POI management tab[/b] in the Property Owned Information.
 [*] [b]Context menu[/b] for POIs in space and on the map, allowing to rename or self-destruct POIs.
 [*] [b]Optimized rename window location[/b] to be close to the selected POI.
@@ -130,9 +131,23 @@ You can configure the mod in the options menu, which can be accessed from the [b
 
 [spoiler][img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/extension_options.png[/img][/spoiler]
 
-In the options menu, you can enable or disable [b]optimized[/b] rename window location, which will make the rename window appear near the selected [b]POI[/b] instead of the center of the screen.
+Where the [b]Player POI[/b] options menu looks like this:
 
 [spoiler][img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_options.png[/img][/spoiler]
+
+[size=120][u]Automatic POI assignment[/u][/size]
+
+There are two options group under the [b]Automatic POI assignment when:[/b] section:
+[list]
+[*] [b]Found an abandoned ship[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found abandoned ship. But moreover, all already known abandoned ships will be assigned with [b]POI[/b]s on enabling this option.
+[/list]
+  This option has an additional sub-option [b]Only if no claim procedure is initiated[/b], which will only assign [b]POI[/b]s to abandoned ships that are not currently being claimed by player. This means that if the player set a claim procedure on an abandoned ship as default action or selected this action by event menu, the [b]POI[/b] will not be assigned to such ship.
+[list]
+[*] [b]Found a lockbox[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found lockbox. And similarly to previous, all already known lockboxes will be assigned with [b]POI[/b]s on enabling this option.
+[/list]
+[size=120][u]Other[/u][/size]
+
+In this section, you can enable or disable [b]optimized[/b] rename window location, which will make the rename window appear near the selected [b]POI[/b] instead of the last mouse position.
 
 There are two screenshots showing the difference between [b]optimized[/b] and [b]standard[/b] rename window location:
 [list]
@@ -162,7 +177,14 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 [/list]
 [size=130][u]Changelog[/u][/size]
 
-
+[size=125][u][8.00.02] - 2026-02-25[/u][/size]
+[list]
+[*] [b]Added[/b]
+[list]
+[*] Possibility to automatically assign POI's to found abandoned ships and lockboxes
+[*] And another interesting feature that will not be mentioned here
+[/list]
+[/list]
 [size=125][u][8.00.01] - 2026-02-24[/u][/size]
 [list]
 [*] [b]Added[/b]
