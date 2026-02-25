@@ -16,14 +16,14 @@
             <signal_cue_instantly cue="md.Simple_Menu_API.Register_Options_Menu"
               param="table[
                 $id      = 'player_poi_options_menu',
-                $columns = 8,
+                $columns = 12,
                 $title   = {1972092414, 1},
                 $onOpen  = Player_Poi_Options_Menu,
               ]" />
           </actions>
         </cue>
 
-        <cue name="Player_Poi_Options_Menu" instantiate="true" version="1">
+        <cue name="Player_Poi_Options_Menu" instantiate="true" version="2">
           <conditions>
             <event_cue_signalled />
           </conditions>
@@ -36,13 +36,13 @@
             <create_list name="$debugLevelOptions" />
             <do_for_each name="$indexValue" in="$debugLevelIndexes" counter="$index">
               <do_if value="$index == 1">
-                <set_value name="$textValue" exact="{1972092414, 90091}" />
+                <set_value name="$textValue" exact="{1972092414, 90991}" />
               </do_if>
               <do_elseif value="$index == 2">
-                <set_value name="$textValue" exact="{1972092414, 90092}" />
+                <set_value name="$textValue" exact="{1972092414, 90992}" />
               </do_elseif>
               <do_else>
-                <set_value name="$textValue" exact="{1972092414, 90093}" />
+                <set_value name="$textValue" exact="{1972092414, 90993}" />
               </do_else>
               <append_to_list name="$debugLevelOptions"
                 exact="table[ $text = $textValue, $value = $indexValue ]" />
@@ -51,7 +51,101 @@
             <do_if value="$debugLevelCurrentIndex == 0">
               <set_value name="$debugLevelCurrentIndex" exact="1" />
             </do_if>
+
+            <run_actions ref="Add_Title_Row">
+              <param name="title" value="{1972092414, 90000}" />
+            </run_actions>
+
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+              param="table[
+                  $id = 'player_poi_assign_abandoned',
+                  $checked = @player.entity.$playerPoi.$assignAbandoned,
+                  $col = 1,
+                  $width = 'Helper.standardButtonHeight',
+                  $height = 'Helper.standardButtonHeight',
+                  $onClick = Player_Poi_On_Checkbox_Change
+                ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 2,
+                $colSpan = 5,
+                $text = {1015, 263},
+              ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+              param="table[
+                $id = 'player_poi_assign_abandoned_no_claim',
+                $checked = @player.entity.$playerPoi.$assignAbandonedNoClaim,
+                $col = 7,
+                $width = 'Helper.standardButtonHeight',
+                $height = 'Helper.standardButtonHeight',
+                $onClick = Player_Poi_On_Checkbox_Change
+                ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 8,
+                $colSpan = 5,
+                $text = {1972092414, 90011},
+              ]" />
+            <include_actions ref="Add_Empty_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+              param="table[
+                  $id = 'player_poi_assign_lockboxes',
+                  $checked = @player.entity.$playerPoi.$assignLockboxes,
+                  $col = 1,
+                  $width = 'Helper.standardButtonHeight',
+                  $height = 'Helper.standardButtonHeight',
+                  $onClick = Player_Poi_On_Checkbox_Change
+                ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 2,
+                $colSpan = 11,
+                $text = {1015, 269},
+              ]" />
+            <include_actions ref="Add_Empty_Row" />
+
+            <run_actions ref="Add_Title_Row">
+              <param name="title" value="{1972092414, 90100}" />
+            </run_actions>
+
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <signal_cue_instantly
+              cue="md.Simple_Menu_API.Make_Button"
+              param="table[
+                  $id = 'player_poi_assign_on_hidden',
+                  $col = 2,
+                  $colSpan = 4,
+                  $height = 'Helper.standardButtonHeight',
+                  $active = true,
+                  $text = table[
+                    $text   = {1972092414, 90101},
+                    $halign = 'center',
+                  ],
+                  $onClick = Player_Poi_On_Button_Click,
+              ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+              param="table[
+                  $id = 'player_poi_assign_on_hidden_all',
+                  $checked = @player.entity.$playerPoi.$assignHiddenAll,
+                  $col = 7,
+                  $width = 'Helper.standardButtonHeight',
+                  $height = 'Helper.standardButtonHeight',
+                  $onClick = Player_Poi_On_Checkbox_Change
+                ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 8,
+                $colSpan = 5,
+                $text = {1972092414, 90102},
+              ]" />
+            <include_actions ref="Add_Empty_Row" />
+
+            <run_actions ref="Add_Title_Row">
+              <param name="title" value="{1972092414, 90900}" />
+            </run_actions>
+
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
               param="table[
@@ -65,21 +159,21 @@
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
               param="table[
                 $col = 2,
-                $colSpan = 7,
-                $text = {1972092414, 90001},
+                $colSpan = 11,
+                $text = {1972092414, 90910},
               ]" />
-            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <include_actions ref="Add_Empty_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
               param="table[
                 $col = 1,
-                $colSpan = 5,
-                $text = {1972092414, 90009},
+                $colSpan = 8,
+                $text = {1972092414, 90990},
               ]" />
             <signal_cue_instantly cue="md.Simple_Menu_API.Make_Dropdown"
               param="table[
-                $col = 6,
-                $colSpan = 3,
+                $col = 9,
+                $colSpan = 4,
                 $options = $debugLevelOptions,
                 $startOption = $debugLevelCurrentIndex,
                 $onDropDownConfirmed = Player_Poi_Handle_Debug_Level,
@@ -89,6 +183,39 @@
           </actions>
         </cue>
 
+
+        <library name="Add_Title_Row" purpose="run_actions">
+          <params>
+            <param name="title" />
+          </params>
+          <actions>
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 1,
+                $colSpan = 12,
+                $fontsize = 'Helper.titleFontSize',
+                $titleColor = 'Color.text_normal',
+                $halign = 'center',
+                $text = $title,
+              ]" />
+            <include_actions ref="Add_Empty_Row" />
+          </actions>
+        </library>
+
+        <library name="Add_Empty_Row" purpose="include_actions">
+          <actions>
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" param="table[$selectable = false]" />
+            <signal_cue_instantly
+              cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 1,
+                $colSpan = 12,
+                $height = 'Helper.borderSize',
+                $fontsize = 'Helper.borderSize',
+                ]" />
+          </actions>
+        </library>
 
         <cue name="Player_Poi_Handle_Debug_Level" instantiate="true" version="1">
           <conditions>
@@ -104,7 +231,7 @@
           </actions>
         </cue>
 
-        <cue name="Player_Poi_On_Checkbox_Change" instantiate="true">
+        <cue name="Player_Poi_On_Checkbox_Change" instantiate="true" version="2">
           <conditions>
             <event_cue_signalled />
           </conditions>
@@ -115,6 +242,36 @@
               <set_value name="player.entity.$playerPoi.$optimizeRename" exact="if event.param.$checked then true else false" />
               <raise_lua_event name="'PlayerPoi.ConfigChanged'" />
             </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_abandoned'">
+              <set_value name="player.entity.$playerPoi.$assignAbandoned" exact="if event.param.$checked then true else false" />
+              <debug_text text="'PlayerPoi Options: Signaling AssignAbandonedChangedSignal'" context="false" filter="scripts" chance="$debugChance" />
+              <signal_cue_instantly cue="md.Player_POI.On_Assign_Abandoned_Changed" />
+            </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_abandoned_no_claim'">
+              <set_value name="player.entity.$playerPoi.$assignAbandonedNoClaim" exact="if event.param.$checked then true else false" />
+            </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_lockboxes'">
+              <set_value name="player.entity.$playerPoi.$assignLockboxes" exact="if event.param.$checked then true else false" />
+              <debug_text text="'PlayerPoi Options: Signaling AssignLockboxesChangedSignal'" context="false" filter="scripts" chance="$debugChance" />
+              <signal_cue_instantly cue="md.Player_POI.On_Assign_Lockboxes_Changed" />
+            </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_on_hidden_all'">
+              <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="if event.param.$checked then true else false" />
+            </do_if>
+            <raise_lua_event name="'PlayerPoi.ConfigChanged'" />
+          </actions>
+        </cue>
+
+        <cue name="Player_Poi_On_Button_Click" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi Options: Button %s clicked' . [event.param.$id]" context="false" filter="scripts" chance="$debugChance" />
+            <do_if value="event.param.$id == 'player_poi_assign_on_hidden'">
+            </do_if>
+            <signal_cue_instantly cue="md.Player_POI.Assign_POI_On_Hidden_Ships" />
           </actions>
         </cue>
 

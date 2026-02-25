@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="Player_POI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cues>
+
+    <cue name="Main" version="1">
+      <actions>
+      </actions>
+      <cues>
+
+        <cue name="On_Assign_Abandoned_Changed" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Assign_AbandonedChanged invoked. Current value: %s. Currently abandoned count: %s'.[@player.entity.$playerPoi.$assignAbandoned, @global.$foundabandonedships.count]" chance="$debugChance" filter="scripts" />
+            <do_if value="@player.entity.$playerPoi.$assignAbandoned == true and @global.$foundabandonedships.count gt 0">
+              <do_for_each name="$abandonedShip" in="@global.$foundabandonedships">
+                <debug_text text="'PlayerPoi: processing abandoned ship %s, exists: %s, is operational: %s, owner: %s, in sector %s'.
+                  [@$abandonedShip.debugname, @$abandonedShip.exists, @$abandonedShip.isoperational, @$abandonedShip.owner, @$abandonedShip.sector.knownname]"
+                  chance="$debugChance" filter="scripts" />
+                <do_if value="$abandonedShip? and @$abandonedShip != null and $abandonedShip != null and $abandonedShip.exists and $abandonedShip.isoperational and @$abandonedShip.owner == faction.ownerless">
+                  <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                    <param name="object" value="$abandonedShip" />
+                  </run_actions>
+                  <do_if value="$isAssigned" negate="true">
+                    <debug_text text="'PlayerPoi: no nearby POI found for abandoned ship %s. Creating POI at ship location.'.[@$abandonedShip.debugname]" chance="$debugChance" filter="scripts" />
+                    <run_actions ref="Assign_POI_On_Object">
+                      <param name="object" value="$abandonedShip" />
+                      <param name="prefix" value="{1972092414, 201}" />
+                    </run_actions>
+                  </do_if>
+                </do_if>
+              </do_for_each>
+            </do_if>
+
+          </actions>
+        </cue>
+
+        <cue name="On_Assign_Lockboxes_Changed" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Assign_LockboxesChanged invoked. Current value: %s. Currently found lockbox count: %s'.[@player.entity.$playerPoi.$assignLockboxes, @global.$foundlockboxes.count]" chance="$debugChance" filter="scripts" />
+            <do_if value="@player.entity.$playerPoi.$assignLockboxes == true and @global.$foundlockboxes.count gt 0">
+              <do_for_each name="$lockbox" in="@global.$foundlockboxes">
+                <do_if value="@$lockbox != null">
+                  <debug_text text="'PlayerPoi: processing lockbox %s, exists: %s, is operational: %s, owner: %s, in sector %s'.
+                    [@$lockbox.debugname, @$lockbox.exists, @$lockbox.isoperational, @$lockbox.owner, @$lockbox.sector.knownname]"
+                    chance="$debugChance" filter="scripts" />
+                  <do_if value="@$lockbox.exists and @$lockbox.isoperational and @$lockbox.owner == faction.ownerless">
+                    <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                      <param name="object" value="$lockbox" />
+                    </run_actions>
+                    <do_if value="$isAssigned" negate="true">
+                      <debug_text text="'PlayerPoi: no nearby POI found for lockbox %s. Creating POI at lockbox location.'.[@$lockbox.debugname]" chance="$debugChance" filter="scripts" />
+                      <run_actions ref="Assign_POI_On_Object">
+                        <param name="object" value="$lockbox" />
+                        <param name="prefix" value="{20109, 4001}" />
+                      </run_actions>
+                    </do_if>
+                  </do_if>
+                </do_if>
+              </do_for_each>
+            </do_if>
+          </actions>
+        </cue>
+
+        <cue name="Assign_POI_On_Hidden_Ships" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: Assign_POI_On_Hidden_Ships invoked. Current assign hidden all value: %s. Currently hidden count: %s'.[@player.entity.$playerPoi.$assignHiddenAll, @global.$IgnoredAbandonedShips.count]" chance="$debugChance" filter="scripts" />
+            <do_if value="@global.$IgnoredAbandonedShips.count gt 0">
+              <do_for_each name="$hiddenShip" in="@global.$IgnoredAbandonedShips">
+                <debug_text text="'PlayerPoi: processing hidden ship %s, exists: %s, is operational: %s, owner: %s, is known: %s, in sector %s'.
+                  [@$hiddenShip.debugname, @$hiddenShip.exists, @$hiddenShip.isoperational, @$hiddenShip.owner, @$hiddenShip.isknown, @$hiddenShip.sector.knownname]"
+                  chance="$debugChance" filter="scripts" />
+                <do_if value="$hiddenShip? and @$hiddenShip != null and $hiddenShip != null and @$hiddenShip.exists and @$hiddenShip.isoperational and @$hiddenShip.owner == faction.ownerless and (@player.entity.$playerPoi.$assignHiddenAll == true or @$hiddenShip.isknown)">
+                  <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                    <param name="object" value="$hiddenShip" />
+                  </run_actions>
+                  <do_if value="$isAssigned" negate="true">
+                    <debug_text text="'PlayerPoi: no nearby POI found for hidden ship %s. Creating POI at ship location.'.[@$hiddenShip.debugname]" chance="$debugChance" filter="scripts" />
+                    <run_actions ref="Assign_POI_On_Object">
+                      <param name="object" value="$hiddenShip" />
+                      <param name="prefix" value="{1972092414, 203}" />
+                    </run_actions>
+                  </do_if>
+                </do_if>
+              </do_for_each>
+            </do_if>
+          </actions>
+        </cue>
+
+        <library name="Is_POI_Assigned_On_Object" purpose="run_actions" version="1">
+          <params>
+            <param name="object" />
+          </params>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <set_value name="$result" exact="false" />
+            <do_if value="$object? and @$object != null and $object.exists">
+              <find_object name="$poiNearby" macro="macro.player_poi_01_macro" space="$object.sector" sortbyvalue="loop.element.distanceto.{$object}" />
+              <debug_text text="'PlayerPoi: Is_POI_Assigned_On_Object. Found nearby POI: %s'.[@$poiNearby.debugname]" chance="$debugChance" filter="scripts" />
+              <do_if value="$poiNearby? and @$poiNearby != null">
+                <set_value name="$distance" exact="$poiNearby.distanceto.{$object}" />
+                <set_value name="$threshold" exact="[@$object.size / 2, $poiObjectMinRadius].max + $poiDistanceThresholdAdditive" />
+                <set_value name="$result" exact="$distance le $threshold" />
+                <debug_text text="'PlayerPoi: Is_POI_Assigned_On_Object. POI exist on distance %s to object %s, with threshold %s, and result %s'.
+                [@$distance, @$object.debugname, @$threshold, @$result]" chance="$debugChance" filter="scripts" />
+              </do_if>
+              <remove_value name="$distance" />
+              <remove_value name="$threshold" />
+            </do_if>
+            <return value="$result" />
+          </actions>
+        </library>
+
+        <library name="Assign_POI_On_Object" purpose="run_actions" version="1">
+          <params>
+            <param name="object" />
+            <param name="prefix" default="{1972092414, 100}" />
+          </params>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <set_value name="$result" exact="null" />
+            <do_if value="$object? and @$object != null and $object.exists">
+              <set_value name="$distance" exact="[@$object.size / 2, $poiObjectMinRadius].max + $poiDistanceAdditive" />
+              <set_value name="$sector" exact="$object.sector" />
+              <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
+                <position x="$object.relativeposition.{$sector}.x" y="$object.relativeposition.{$sector}.y + $distance" z="$object.relativeposition.{$sector}.z" />
+              </create_object>
+              <do_if value="$poi? and @$poi != null">
+                <set_value name="$name" exact="{1972092414, 112}.[$prefix, $object.knownname, $object.idcode, $sector.knownname]" />
+                <set_object_name object="$poi" name="$name" />
+                <debug_text text="'PlayerPoi: created POI %s with name %s on distance: %s'.[@$poi, $name, @$distance]" chance="$debugChance" filter="scripts" />
+                <remove_value name="$name" />
+              </do_if>
+              <set_value name="$result" exact="$poi" />
+              <remove_value name="$distance" />
+              <remove_value name="$sector" />
+              <remove_value name="$poi" />
+            </do_if>
+            <return value="$result" />
+          </actions>
+        </library>
+
+      </cues>
+    </cue>
+
+
+  </cues>
+</mdscript>

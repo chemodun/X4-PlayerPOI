@@ -25,12 +25,34 @@
           </actions>
         </cue>
 
-        <library name="Get_Variables" version="1">
+        <library name="Get_Variables" version="2">
           <actions>
             <do_if value="@player.entity.$playerPoi == null">
-              <set_value name="player.entity.$playerPoi" exact="table[$debugLevel = 'none', $optimizeRename = true]" />
+              <set_value name="player.entity.$playerPoi" exact="table[
+                $assignAbandoned = false,
+                $assignAbandonedNoClaim = false,
+                $assignLockboxes = false,
+                $assignHiddenAll = false,
+                $debugLevel = 'none',
+                $optimizeRename = true
+                ]" />
+            </do_if>
+            <do_if value="@player.entity.$playerPoi.$assignAbandoned == null">
+              <set_value name="player.entity.$playerPoi.$assignAbandoned" exact="false" />
+            </do_if>
+            <do_if value="@player.entity.$playerPoi.$assignAbandonedNoClaim == null">
+              <set_value name="player.entity.$playerPoi.$assignAbandonedNoClaim" exact="false" />
+            </do_if>
+            <do_if value="@player.entity.$playerPoi.$assignLockboxes == null">
+              <set_value name="player.entity.$playerPoi.$assignLockboxes" exact="false" />
+            </do_if>
+            <do_if value="@player.entity.$playerPoi.$assignHiddenAll == null">
+              <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="false" />
             </do_if>
             <set_value name="$debugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
+            <set_value name="$poiDistanceAdditive" exact="20m" />
+            <set_value name="$poiDistanceThresholdAdditive" exact="30m" />
+            <set_value name="$poiObjectMinRadius" exact="150m" />
           </actions>
         </library>
 
@@ -111,6 +133,9 @@
                 ]" />
             </do_elseif>
             <do_else>
+              <run_actions ref="md.Player_POI.Is_POI_Assigned_On_Object" result="$isPoiAssigned">
+                <param name="object" value="@event.param.$object" />
+              </run_actions>
               <signal_cue_instantly
                 cue="md.Interact_Menu_API.Add_Action"
                 param="table[
@@ -118,9 +143,10 @@
                   $section        = if @event.param.$object.isclass.{class.station} then 'interaction' else 'order',
                   $text           = {1972092414, 1012},
                   $icon           = 'mapob_poi',
-                  $active         = true,
+                  $active         = $isPoiAssigned == false,
                   $callback       = On_Create_POI_On_Object,
                 ]" />
+              <remove_value name="$isPoiAssigned" />
             </do_else>
             <remove_value name="$sector" />
             <remove_value name="$poi" />
@@ -146,7 +172,7 @@
               <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
                 <position x="$offset.x" y="$offset.y" z="$offset.z" />
               </create_object>
-              <do_if value="$poi and @$poi != null">
+              <do_if value="$poi? and @$poi != null">
                 <set_value name="$name" exact="{1972092414, 111}.[$sector.knownname, ($offset.x/1000)i, ($offset.y/1000)i, ($offset.z/1000)i]" />
                 <set_object_name object="$poi" name="$name" />
                 <remove_value name="$name" />
@@ -166,20 +192,16 @@
             <debug_text text="'PlayerPoi: On_Create_POI_On_Object invoked with param: %s'.[event.param]" chance="$debugChance" filter="scripts" />
             <set_value name="$sector" exact="if event.param.$offsetcomponent != null then event.param.$offsetcomponent else event.param.$object.sector" />
             <set_value name="$object" exact="event.param.$object" />
-            <do_if
-              value="not $sector? or not $sector.isclass.{class.sector}">
+            <do_if value="not $sector? or not $sector.isclass.{class.sector}">
               <debug_text text="'PlayerPoi: unable to resolve sector context.'"
                 chance="$debugChance" filter="scripts" />
             </do_if>
             <do_else>
-              <create_object name="$poi" owner="faction.player" macro="macro.player_poi_01_macro" sector="$sector">
-                <safepos object="$object" />
-              </create_object>
-              <do_if value="$poi and @$poi != null">
-                <set_value name="$name" exact="{1972092414, 112}.[$object.knownname, $object.idcode, $sector.knownname]" />
-                <set_object_name object="$poi" name="$name" />
-                <remove_value name="$name" />
-              </do_if>
+              <debug_text text="'PlayerPoi: creating POI on object %s in sector %s, with y: %s, size: %s, new y: %s'.[@$object, @$sector.knownname, $object.relativeposition.{$sector}.y, $object.size, $object.relativeposition.{$sector}.y + $object.size + 200m]" chance="$debugChance" filter="scripts" />
+              <run_actions ref="md.Player_POI.Assign_POI_On_Object">
+                <param name="object" value="$object" />
+                <param name="prefix" value="{1972092414, 100}" />
+              </run_actions>
             </do_else>
             <remove_value name="$sector" />
             <remove_value name="$object" />
