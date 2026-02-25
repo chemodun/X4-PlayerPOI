@@ -158,7 +158,8 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 
 ## Video
 
-[Video demonstration of Player POI](https://www.youtube.com/watch?v=YpPnR0eNdJg)
+- [Video demonstration of Player POI](https://www.youtube.com/watch?v=YpPnR0eNdJg)
+- [Video demonstration of Automatic POI assignment](https://www.youtube.com/watch?v=RK7KkX5M588)
 
 ## Credits
 
