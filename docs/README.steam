@@ -4,13 +4,14 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 
 [h2][b]Features[/b][/h2]
 [list]
-[*] [b]Creation of custom POIs[/b] on the map at any location.
-[*] [b]Assignment of POIs to objects[/b] on map or in space (non player stations, gates, abandoned ships, lockboxes).
-[*] [b]Automatic name generation[/b] for POIs based on the assigned object or location.
-[*] [b]Automatic POI assignment[/b] to found abandoned ships and lockboxes (if configured).
-[*] [b]POI management tab[/b] in the Property Owned Information.
-[*] [b]Context menu[/b] for POIs in space and on the map, allowing to rename or self-destruct POIs.
-[*] [b]Optimized rename window location[/b] to be close to the selected POI.
+[*] [b]Creation of custom POIs[/b] on the map at any location or by assignment to objects (non-player stations, gates, abandoned ships, lockboxes).
+[*] [b]Automatic name generation[/b] for POIs based on the assigned object name or location coordinates.
+[*] [b]Automatic POI assignment[/b] to newly discovered abandoned ships and lockboxes, with optional exclusion during claim procedures.
+[*] [b]Duplicate prevention[/b] - checks prevent creating multiple POIs at the same location.
+[*] [b]POI management tab[/b] in the Property Owned Information menu for centralized access to all your POIs.
+[*] [b]Context menu[/b] for POIs in space and on the map, with options to rename, self-destruct, or locate POIs.
+[*] [b]Optimized rename window location[/b] - rename dialog appears near the selected POI instead of at the mouse cursor.
+[*] [b]A "hidden" feature[/b] - discover it only by using the mod.
 [/list]
 [h2][b]Requirements[/b][/h2]
 [list]
@@ -31,8 +32,8 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 [/list]
 [h2]Limitations[/h2]
 [list]
-[*] As there is standard [b]Rename[/b] window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
-[*] [b]POI[/b] is not attached to the assigned object, but there is a check implemented which will prevent [b]POI[/b] from being created if there is already a [b]POI[/b] exists close enough to the assigned object.
+[*] As the standard [b]Rename[/b] window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
+[*] [b]POI[/b] is not attached to the assigned object, but there is a check implemented which will prevent a [b]POI[/b] from being created if there already exists a [b]POI[/b] close enough to the assigned object.
 [/list]
 [h2][b]Installation[/b][/h2]
 [list]
@@ -101,7 +102,7 @@ There is an additional tab in the Property Owned Information called [b]Player PO
 [h3][u]Self-destructing a POI[/u][/h3]
 
 When you select "Self-destruct" from the context menu of a [b]POI[/b], the [b]POI[/b] will be immediately removed from the game. This action cannot be undone, so use it with caution.
-There  is an example of a [b]POI[/b] that is about to be self-destructed in the following screenshot:
+There is an example of a [b]POI[/b] that is about to be self-destructed in the following screenshot:
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_on_tab.png[/img]
 
