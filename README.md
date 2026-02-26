@@ -4,13 +4,14 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 
 ## Features
 
-- **Creation of custom POIs** on the map at any location.
-- **Assignment of POIs to objects** on map or in space (non player stations, gates, abandoned ships, lockboxes).
-- **Automatic name generation** for POIs based on the assigned object or location.
-- **Automatic POI assignment** to found abandoned ships and lockboxes (if configured).
-- **POI management tab** in the Property Owned Information.
-- **Context menu** for POIs in space and on the map, allowing to rename or self-destruct POIs.
-- **Optimized rename window location** to be close to the selected POI.
+- **Creation of custom POIs** on the map at any location or by assignment to objects (non-player stations, gates, abandoned ships, lockboxes).
+- **Automatic name generation** for POIs based on the assigned object name or location coordinates.
+- **Automatic POI assignment** to newly discovered abandoned ships and lockboxes, with optional exclusion during claim procedures.
+- **Duplicate prevention** - checks prevent creating multiple POIs at the same location.
+- **POI management tab** in the Property Owned Information menu for centralized access to all your POIs.
+- **Context menu** for POIs in space and on the map, with options to rename, self-destruct, or locate POIs.
+- **Optimized rename window location** - rename dialog appears near the selected POI instead of at the mouse cursor.
+- **A "hidden" feature** - discover it only by using the mod.
 
 ## Requirements
 
@@ -27,8 +28,8 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 
 ### Limitations
 
-- As there is standard `Rename` window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
-- `POI` is not attached to the assigned object, but there is a check implemented which will prevent `POI` from being created if there is already a `POI` exists close enough to the assigned object.
+- As the standard `Rename` window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
+- `POI` is not attached to the assigned object, but there is a check implemented which will prevent a `POI` from being created if there already exists a `POI` close enough to the assigned object.
 
 ## Installation
 
@@ -97,7 +98,7 @@ There is an additional tab in the Property Owned Information called `Player POI`
 ##### Self-destructing a POI
 
 When you select "Self-destruct" from the context menu of a `POI`, the `POI` will be immediately removed from the game. This action cannot be undone, so use it with caution.
-There  is an example of a `POI` that is about to be self-destructed in the following screenshot:
+There is an example of a `POI` that is about to be self-destructed in the following screenshot:
 
 ![POI context menu on tab](docs/images/poi_context_menu_on_tab.png)
 
