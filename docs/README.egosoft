@@ -1,11 +1,11 @@
 [size=140][u]Player POI[/u][/size]
 
-Implementation of player POI (point of interest) system, allowing players to create and manage custom POIs in on the map and in space.
+Marks abandoned ships, lockboxes, stations, and any point in space, either automatically or manually.
 
 [size=130][u]Features[/u][/size]
 [list]
 [*] [b]Creation of custom POIs[/b] on the map at any location.
-[*] [b]Assignment of POIs to objects[/b] on map or in space (non player stations and gates).
+[*] [b]Assignment of POIs to objects[/b] on map or in space (non player stations, gates, abandoned ships, lockboxes).
 [*] [b]Automatic name generation[/b] for POIs based on the assigned object or location.
 [*] [b]Automatic POI assignment[/b] to found abandoned ships and lockboxes (if configured).
 [*] [b]POI management tab[/b] in the Property Owned Information.
@@ -32,7 +32,7 @@ Implementation of player POI (point of interest) system, allowing players to cre
 [size=125][u]Limitations[/u][/size]
 [list]
 [*] As there is standard [b]Rename[/b] window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
-[*] [b]POI[/b] is not attached to the assigned object, so there is no limitation on count of [b]POIs[/b] that can be assigned to the same object, but also it means that if the assigned object is moved or destroyed, the [b]POI[/b] will remain in its original location and will not be updated or removed.
+[*] [b]POI[/b] is not attached to the assigned object, but there is a check implemented which will prevent [b]POI[/b] from being created if there is already a [b]POI[/b] exists close enough to the assigned object.
 [/list]
 [size=130][u]Installation[/u][/size]
 [list]
@@ -51,13 +51,13 @@ The created [b]POI[/b] will be visible on the map and in the [b]Player POI[/b] t
 
 [spoiler][img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/created_poi_at_point_on_map.png[/img][/spoiler]
 
-Additionally, you can assign a [b]POI[/b] to an object on the map (like a station or a gate) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
+Additionally, you can assign a [b]POI[/b] to an object on the map (like a station, gate, abandoned ship, or lockbox) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
 
 Context menu for assigning a [b]POI[/b] to an object on the map is exactly the same as in space, see the next section for details.
 
 [size=125][u]Creating a POI in space[/u][/size]
 
-In space, you can only assign a [b]POI[/b] to an object (like a station or a gate) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
+In space, you can only assign a [b]POI[/b] to an object (like a station, gate, abandoned ship, or lockbox) by right-clicking on the object and selecting [b]Assign POI[/b] from the context menu. The [b]POI[/b] will be created and automatically located near the object, and its name will be generated based on the object's name.
 
 [spoiler][img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/assign_poi_on_object_in_space.png[/img][/spoiler]
 
