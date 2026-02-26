@@ -1,11 +1,11 @@
 # Player POI
 
-Implementation of player POI (point of interest) system, allowing players to create and manage custom POIs in on the map and in space.
+Marks abandoned ships, lockboxes, stations, and any point in space, either automatically or manually.
 
 ## Features
 
 - **Creation of custom POIs** on the map at any location.
-- **Assignment of POIs to objects** on map or in space (non player stations and gates).
+- **Assignment of POIs to objects** on map or in space (non player stations, gates, abandoned ships, lockboxes).
 - **Automatic name generation** for POIs based on the assigned object or location.
 - **Automatic POI assignment** to found abandoned ships and lockboxes (if configured).
 - **POI management tab** in the Property Owned Information.
@@ -28,7 +28,7 @@ Implementation of player POI (point of interest) system, allowing players to cre
 ### Limitations
 
 - As there is standard `Rename` window is used for renaming POIs, there is a standard game limitation on the name length that can be applied.
-- `POI` is not attached to the assigned object, so there is no limitation on count of `POIs` that can be assigned to the same object, but also it means that if the assigned object is moved or destroyed, the `POI` will remain in its original location and will not be updated or removed.
+- `POI` is not attached to the assigned object, but there is a check implemented which will prevent `POI` from being created if there is already a `POI` exists close enough to the assigned object.
 
 ## Installation
 
@@ -47,13 +47,13 @@ The created `POI` will be visible on the map and in the `Player POI` tab of the 
 
 ![POI created at the selected point on the map](docs/images/created_poi_at_point_on_map.png)
 
-Additionally, you can assign a `POI` to an object on the map (like a station or a gate) by right-clicking on the object and selecting `Assign POI` from the context menu. The `POI` will be created and automatically located near the object, and its name will be generated based on the object's name.
+Additionally, you can assign a `POI` to an object on the map (like a station, gate, abandoned ship, or lockbox) by right-clicking on the object and selecting `Assign POI` from the context menu. The `POI` will be created and automatically located near the object, and its name will be generated based on the object's name.
 
 Context menu for assigning a `POI` to an object on the map is exactly the same as in space, see the next section for details.
 
 ### Creating a POI in space
 
-In space, you can only assign a `POI` to an object (like a station or a gate) by right-clicking on the object and selecting `Assign POI` from the context menu. The `POI` will be created and automatically located near the object, and its name will be generated based on the object's name.
+In space, you can only assign a `POI` to an object (like a station, gate, abandoned ship, or lockbox) by right-clicking on the object and selecting `Assign POI` from the context menu. The `POI` will be created and automatically located near the object, and its name will be generated based on the object's name.
 
 ![Assigning a POI to an object in space](docs/images/assign_poi_on_object_in_space.png)
 
