@@ -175,6 +175,11 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 
 ## Changelog
 
+### [8.00.03] - 2026-03-01
+
+- **Fixed**
+  - Sorting in the `Player POI` tab.
+
 ### [8.00.02] - 2026-02-25
 
 - **Added**
