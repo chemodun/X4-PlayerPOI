@@ -181,6 +181,13 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 [/list]
 [h2][b]Changelog[/b][/h2]
 
+[h2][8.00.03] - 2026-03-01[/h2]
+[list]
+[*] [b]Fixed[/b]
+[list]
+[*] Sorting in the [b]Player POI[/b] tab.
+[/list]
+[/list]
 [h2][8.00.02] - 2026-02-25[/h2]
 [list]
 [*] [b]Added[/b]
