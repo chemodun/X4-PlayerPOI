@@ -148,7 +148,7 @@ function playerPoi.prepareTabData(infoTableData)
     local macro = GetComponentData(ConvertStringTo64Bit(tostring(deployable)), "macro")
     if macro == playerPoi.poiMacro then
       trace("Found deployable with matching macro: " .. tostring(deployable))
-      playerPoiList[#playerPoiList + 1] = deployable
+      table.insert(playerPoiList, 1, deployable)
       table.remove(infoTableData.deployables, i)
     end
   end
