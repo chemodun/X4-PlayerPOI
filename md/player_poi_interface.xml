@@ -37,16 +37,16 @@
                 $optimizeRename = true
                 ]" />
             </do_if>
-            <do_if value="@player.entity.$playerPoi.$assignAbandoned == null">
+            <do_if value="player.entity.$playerPoi.$assignAbandoned? == false">
               <set_value name="player.entity.$playerPoi.$assignAbandoned" exact="false" />
             </do_if>
-            <do_if value="@player.entity.$playerPoi.$assignAbandonedNoClaim == null">
+            <do_if value="player.entity.$playerPoi.$assignAbandonedNoClaim? == false">
               <set_value name="player.entity.$playerPoi.$assignAbandonedNoClaim" exact="false" />
             </do_if>
-            <do_if value="@player.entity.$playerPoi.$assignLockboxes == null">
+            <do_if value="player.entity.$playerPoi.$assignLockboxes? == false">
               <set_value name="player.entity.$playerPoi.$assignLockboxes" exact="false" />
             </do_if>
-            <do_if value="@player.entity.$playerPoi.$assignHiddenAll == null">
+            <do_if value="player.entity.$playerPoi.$assignHiddenAll? == false">
               <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="false" />
             </do_if>
             <set_value name="$debugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
