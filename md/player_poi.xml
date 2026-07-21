@@ -134,8 +134,8 @@
           </conditions>
           <actions>
             <include_actions ref="md.Player_POI_Interface.Get_Variables" />
-            <debug_text text="'PlayerPoi: On_Found_Abandoned_Ship invoked. Ship: %s, signal: %s'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
-            <do_if value="event.param2? and @event.param2 != null">
+            <debug_text text="'PlayerPoi: On_Found_Abandoned_Ship invoked. Ship: %s, signal: %s, assignAbandoned: %s'.[@event.param2.debugname, @event.param3, @player.entity.$playerPoi.$assignAbandoned]" chance="$debugChance" filter="scripts" />
+            <do_if value="@player.entity.$playerPoi.$assignAbandoned == true and event.param2? and @event.param2 != null">
               <do_if value="@event.param3 != 'claim' or @player.entity.$playerPoi.$assignAbandonedNoClaim == false">
                 <debug_text text="'PlayerPoi: Found abandoned ship %s with signal %s, and assignAbandonedNoClaim is false, or signal is not claim. Processing for POI assignment.'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
                 <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
@@ -193,8 +193,8 @@
           </conditions>
           <actions>
             <include_actions ref="md.Player_POI_Interface.Get_Variables" />
-            <debug_text text="'PlayerPoi: On_Found_Lockbox invoked. Lockbox: %s, signal: %s'.[@event.param2.debugname, @event.param3]" chance="$debugChance" filter="scripts" />
-            <do_if value="event.param2? and @event.param2 != null and @event.param3 != 'collect' and @event.param3 != 'wait'">
+            <debug_text text="'PlayerPoi: On_Found_Lockbox invoked. Lockbox: %s, signal: %s, assignLockboxes: %s'.[@event.param2.debugname, @event.param3, @player.entity.$playerPoi.$assignLockboxes]" chance="$debugChance" filter="scripts" />
+            <do_if value="@player.entity.$playerPoi.$assignLockboxes == true and event.param2? and @event.param2 != null and @event.param3 != 'collect' and @event.param3 != 'wait'">
               <debug_text text="'PlayerPoi: Found lockbox %s. Processing for POI assignment.'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
               <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
                 <param name="object" value="@event.param2" />
