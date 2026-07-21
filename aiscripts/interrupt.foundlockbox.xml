@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <diff>
-  <replace sel="/aiscript/interrupts/library/handler/conditions/check_value[@value='$lockbox.locks.operational.count']">
-    <count_gravidar_contacts result="$dataVault" object="this.assignedcontrolled" datavault="true" functional="true" min="1" multiple="false">
-      <match_context class="class.highway" negate="true" />
-      <match owner="this.trueowner" negate="true" />
-    </count_gravidar_contacts>
-  </replace>
+  <remove sel="/aiscript/interrupts/library/handler/conditions/count_gravidar_contacts" />
+  <remove sel="/aiscript/interrupts/library/handler/conditions/check_value[@value='$lockbox.locks.operational.count']" />
   <remove sel="/aiscript/interrupts/library/handler/conditions/check_value[@value='$lockbox.sector']" />
   <remove sel="/aiscript/interrupts/library/handler/conditions/check_value[@value=&quot;(@this.assignedcontrolled.order.id != 'CollectLockbox') or (@this.assignedcontrolled.order.$target != $lockbox)&quot;]" />
   <replace sel="/aiscript/interrupts/library/handler/conditions/check_any/check_value[@value='not this.isplayerowned']">
     <check_all>
+      <count_gravidar_contacts result="$lockbox" object="this.assignedcontrolled" class="class.lockbox" functional="true" min="1" multiple="false">
+        <match_context class="class.highway" negate="true" />
+        <match owner="this.trueowner" negate="true" />
+      </count_gravidar_contacts>
       <check_value value="@$lockbox != null" />
       <check_value value="$lockbox.locks.operational.count" />
       <check_value value="$lockbox.sector" />
@@ -22,39 +22,36 @@
   </replace>
   <replace sel="/aiscript/interrupts/library/handler/conditions/check_any/check_value[@value='not @global.$foundlockboxes.indexof.{$lockbox}']">
     <check_all>
+      <count_gravidar_contacts result="$dataVault" object="this.assignedcontrolled" datavault="true" functional="true" min="1" multiple="false">
+        <match_context class="class.highway" negate="true" />
+        <match owner="this.trueowner" negate="true" />
+      </count_gravidar_contacts>
       <check_value value="this.isplayerowned" />
       <check_value value="@$dataVault != null" />
       <check_value value="$dataVault.isdatavault" />
       <check_value value="$dataVault.isunlocked" negate="true" />
       <check_value value="@this.assignedcontrolled.order.$target != $dataVault" />
+      <check_value value="not @global.$playerPOIFoundDataVaults.indexof.{$dataVault}" />
     </check_all>
   </replace>
   <add sel="/aiscript/interrupts/library/handler/actions" pos="prepend">
-    <do_if value="@$lockbox == null">
-      <resume label="skip_lockbox" />
-    </do_if>
-  </add>
-  <add sel="/aiscript/interrupts/library/handler/actions/remove_value[@name='$lockboxpos']" pos="after">
-    <label name="skip_lockbox" />
-  </add>
-  <add sel="/aiscript/interrupts/library/handler/actions/remove_value[@name='$lockbox']" pos="after">
     <do_if value="@$dataVault != null">
       <set_value name="$vaultDebugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
       <do_if value="not global.$playerPOIFoundDataVaults?">
         <create_group groupname="global.$playerPOIFoundDataVaults" />
-        <debug_text text="'initializing found data vault group'" chance="$vaultDebugChance" />
+        <debug_text text="'PlayerPoi: initializing found data vault group'" chance="$vaultDebugChance" />
       </do_if>
       <do_if value="not @global.$playerPOIFoundDataVaults.indexof.{$dataVault}">
         <add_to_group groupname="global.$playerPOIFoundDataVaults" object="$dataVault" />
-        <debug_text text="'appending to found data vault group. num entries: ' + global.$playerPOIFoundDataVaults.count" chance="$vaultDebugChance" />
+        <debug_text text="'PlayerPoi: appending to found data vault group. num entries: ' + global.$playerPOIFoundDataVaults.count" chance="$vaultDebugChance" />
       </do_if>
       <do_all exact="global.$playerPOIFoundDataVaults.count" counter="$i" reverse="true" comment="clean up group">
         <do_if value="not global.$playerPOIFoundDataVaults.{$i}.isoperational">
-          <debug_text text="'cleaning up %s %s from found data vault group.'.[@global.$playerPOIFoundDataVaults.{$i}.knownname, global.$playerPOIFoundDataVaults.{$i}]" chance="$vaultDebugChance" />
+          <debug_text text="'PlayerPoi: cleaning up %s %s from found data vault group.'.[@global.$playerPOIFoundDataVaults.{$i}.knownname, global.$playerPOIFoundDataVaults.{$i}]" chance="$vaultDebugChance" />
           <remove_from_group group="global.$playerPOIFoundDataVaults" object="global.$playerPOIFoundDataVaults.{$i}" />
         </do_if>
       </do_all>
-      <debug_text text="'cleaned up found data vault group. num entries: ' + global.$playerPOIFoundDataVaults.count" chance="$vaultDebugChance" />
+      <debug_text text="'PlayerPoi: cleaned up found data vault group. num entries: ' + global.$playerPOIFoundDataVaults.count" chance="$vaultDebugChance" />
       <do_if value="@player.entity.$playerPoi.$assignDataVaults == true">
         <signal_objects object="player.entity" param="'PlayerPoi.FoundDataVault'" param2="$dataVault" />
       </do_if>
