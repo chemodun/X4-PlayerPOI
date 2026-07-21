@@ -107,8 +107,8 @@
             <debug_text text="'PlayerPoi: Assign_POI_On_Erlking_DataVaults invoked. Found: %s'.[@$erlkingVaults.count]" chance="$debugChance" filter="scripts" />
             <do_if value="@$erlkingVaults.count gt 0">
               <do_for_each name="$erlkingVault" in="@$erlkingVaults">
-                <debug_text text="'PlayerPoi: processing Erlking data vault %s, exists: %s, isunlocked: %s, in sector %s'.
-                  [@$erlkingVault.debugname, @$erlkingVault.exists, @$erlkingVault.isunlocked, @$erlkingVault.sector.knownname]"
+                <debug_text text="'PlayerPoi: processing Erlking data vault %s, exists: %s, isunlocked: %s, is known: %s, in sector %s'.
+                  [@$erlkingVault.debugname, @$erlkingVault.exists, @$erlkingVault.isunlocked, @$erlkingVault.isknown, @$erlkingVault.sector.knownname]"
                   chance="$debugChance" filter="scripts" />
                 <do_if value="$erlkingVault? and @$erlkingVault != null and @$erlkingVault.exists and not @$erlkingVault.isunlocked and (@player.entity.$playerPoi.$assignErlkingAll == true or @$erlkingVault.isknown)">
                   <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
