@@ -118,7 +118,7 @@
                     <debug_text text="'PlayerPoi: no nearby POI found for Erlking data vault %s. Creating POI at data vault location.'.[@$erlkingVault.debugname]" chance="$debugChance" filter="scripts" />
                     <run_actions ref="Assign_POI_On_Object">
                       <param name="object" value="$erlkingVault" />
-                      <param name="prefix" value="{20109, 8901}" />
+                      <param name="prefix" value="'{20101,121101} {1001,98}'" />
                     </run_actions>
                   </do_if>
                 </do_if>
