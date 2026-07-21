@@ -170,6 +170,49 @@
               ]" />
             <include_actions ref="Add_Empty_Row" />
 
+            <find_object name="$erlkingVaultsCheck" godobjectentry="['erlking_blueprint_1', 'erlking_blueprint_2', 'erlking_blueprint_3', 'erlking_blueprint_4', 'erlking_blueprint_5']" space="player.galaxy" multiple="true" />
+            <do_if value="@$erlkingVaultsCheck.count gt 0">
+              <run_actions ref="Add_Title_Row">
+                <param name="title" value="{1972092414, 90200}" />
+              </run_actions>
+
+              <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+              <signal_cue_instantly
+                cue="md.Simple_Menu_API.Make_Button"
+                param="table[
+                    $id = 'player_poi_assign_erlking_datavaults',
+                    $col = 2,
+                    $colSpan = 4,
+                    $height = 'Helper.standardButtonHeight',
+                    $active = true,
+                    $text = table[
+                      $text   = {1972092414, 90101},
+                      $halign = 'center',
+                    ],
+                    $mouseOverText = {1972092414, 91200},
+                    $onClick = Player_Poi_On_Button_Click,
+                ]" />
+              <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+                param="table[
+                    $id = 'player_poi_assign_erlking_all',
+                    $checked = @player.entity.$playerPoi.$assignErlkingAll,
+                    $col = 7,
+                    $width = 'Helper.standardButtonHeight',
+                    $height = 'Helper.standardButtonHeight',
+                    $mouseOverText = {1972092414, 91201},
+                    $onClick = Player_Poi_On_Checkbox_Change
+                  ]" />
+              <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+                param="table[
+                  $col = 8,
+                  $colSpan = 5,
+                  $text = {1972092414, 90102},
+                  $mouseOverText = {1972092414, 91201},
+                ]" />
+              <include_actions ref="Add_Empty_Row" />
+            </do_if>
+            <remove_value name="$erlkingVaultsCheck" />
+
             <run_actions ref="Add_Title_Row">
               <param name="title" value="{1972092414, 90900}" />
             </run_actions>
@@ -293,6 +336,9 @@
             <do_if value="event.param.$id == 'player_poi_assign_on_hidden_all'">
               <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="if event.param.$checked then true else false" />
             </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_erlking_all'">
+              <set_value name="player.entity.$playerPoi.$assignErlkingAll" exact="if event.param.$checked then true else false" />
+            </do_if>
             <raise_lua_event name="'PlayerPoi.ConfigChanged'" />
           </actions>
         </cue>
@@ -306,6 +352,9 @@
             <debug_text text="'PlayerPoi Options: Button %s clicked' . [event.param.$id]" context="false" filter="scripts" chance="$debugChance" />
             <do_if value="event.param.$id == 'player_poi_assign_on_hidden'">
               <signal_cue_instantly cue="md.Player_POI.Assign_POI_On_Hidden_Ships" />
+            </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_erlking_datavaults'">
+              <signal_cue_instantly cue="md.Player_POI.Assign_POI_On_Erlking_DataVaults" />
             </do_if>
           </actions>
         </cue>

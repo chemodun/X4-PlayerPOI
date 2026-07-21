@@ -97,6 +97,37 @@
           </actions>
         </cue>
 
+        <cue name="Assign_POI_On_Erlking_DataVaults" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <find_object name="$erlkingVaults" godobjectentry="['erlking_blueprint_1', 'erlking_blueprint_2', 'erlking_blueprint_3', 'erlking_blueprint_4', 'erlking_blueprint_5']" space="player.galaxy" multiple="true" />
+            <debug_text text="'PlayerPoi: Assign_POI_On_Erlking_DataVaults invoked. Found: %s'.[@$erlkingVaults.count]" chance="$debugChance" filter="scripts" />
+            <do_if value="@$erlkingVaults.count gt 0">
+              <do_for_each name="$erlkingVault" in="@$erlkingVaults">
+                <debug_text text="'PlayerPoi: processing Erlking data vault %s, exists: %s, isunlocked: %s, in sector %s'.
+                  [@$erlkingVault.debugname, @$erlkingVault.exists, @$erlkingVault.isunlocked, @$erlkingVault.sector.knownname]"
+                  chance="$debugChance" filter="scripts" />
+                <do_if value="$erlkingVault? and @$erlkingVault != null and @$erlkingVault.exists and not @$erlkingVault.isunlocked and (@player.entity.$playerPoi.$assignErlkingAll == true or @$erlkingVault.isknown)">
+                  <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                    <param name="object" value="$erlkingVault" />
+                  </run_actions>
+                  <do_if value="$isAssigned" negate="true">
+                    <debug_text text="'PlayerPoi: no nearby POI found for Erlking data vault %s. Creating POI at data vault location.'.[@$erlkingVault.debugname]" chance="$debugChance" filter="scripts" />
+                    <run_actions ref="Assign_POI_On_Object">
+                      <param name="object" value="$erlkingVault" />
+                      <param name="prefix" value="{20109, 8901}" />
+                    </run_actions>
+                  </do_if>
+                </do_if>
+              </do_for_each>
+            </do_if>
+            <remove_value name="$erlkingVaults" />
+          </actions>
+        </cue>
+
         <cue name="On_Found_Abandoned_Ship" instantiate="true" version="1">
           <conditions>
             <event_object_signalled object="player.entity" param="'PlayerPoi.FoundAbandonedShip'" />

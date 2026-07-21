@@ -19,6 +19,7 @@
       <t id="90100">Hidden ships:</t>
       <t id="90101">Assign POI</t>
       <t id="90102">On all, not only on known</t>
+      <t id="90200">{20101,121101} {1001,98}:</t>
       <t id="90900">Other</t>
       <t id="90910">Optimize rename window location</t>
       <t id="90990">Debug level:</t>
@@ -31,6 +32,8 @@
       <t id="91030">When enabled, it will assign POIs to every newly discovered data vault as well as to all previously known ones</t>
       <t id="91101">Will assign POI's on some objects. Who knows which ones?</t>
       <t id="91102">Really strange checkbox. Who knows what it does?</t>
+      <t id="91200">Will assign a POI to any known but not yet unlocked special (Pirate DLC / Erlking) data vault, if present in this galaxy</t>
+      <t id="91201">Should the POI be assigned even if the data vault is not yet known?</t>
       <t id="91910">Rename window will appear near the selected POI instead of the last mouse position in context menu</t>
     </page>
   </add>

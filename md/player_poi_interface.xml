@@ -34,6 +34,7 @@
                 $assignLockboxes = false,
                 $assignDataVaults = false,
                 $assignHiddenAll = false,
+                $assignErlkingAll = false,
                 $debugLevel = 'none',
                 $optimizeRename = true
                 ]" />
@@ -52,6 +53,9 @@
             </do_if>
             <do_if value="player.entity.$playerPoi.$assignHiddenAll? == false">
               <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="false" />
+            </do_if>
+            <do_if value="player.entity.$playerPoi.$assignErlkingAll? == false">
+              <set_value name="player.entity.$playerPoi.$assignErlkingAll" exact="false" />
             </do_if>
             <set_value name="$debugChance" exact="if @player.entity.$playerPoi.$debugLevel == null or @player.entity.$playerPoi.$debugLevel == 'none' then 0 else 100" />
             <set_value name="$poiDistanceAdditive" exact="20m" />
