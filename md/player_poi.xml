@@ -125,6 +125,37 @@
           </actions>
         </cue>
 
+        <cue name="On_Assign_DataVaults_Changed" instantiate="true" version="1">
+          <conditions>
+            <event_cue_signalled />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Assign_DataVaults_Changed invoked. Current value: %s. Currently found data vault count: %s'.[@player.entity.$playerPoi.$assignDataVaults, @global.$playerPOIFoundDataVaults.count]" chance="$debugChance" filter="scripts" />
+            <do_if value="@player.entity.$playerPoi.$assignDataVaults == true and @global.$playerPOIFoundDataVaults.count gt 0">
+              <do_for_each name="$dataVault" in="@global.$playerPOIFoundDataVaults">
+                <do_if value="@$dataVault != null">
+                  <debug_text text="'PlayerPoi: processing data vault %s, exists: %s, in sector %s'.
+                    [@$dataVault.debugname, @$dataVault.exists, @$dataVault.sector.knownname]"
+                    chance="$debugChance" filter="scripts" />
+                  <do_if value="@$dataVault.exists">
+                    <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                      <param name="object" value="$dataVault" />
+                    </run_actions>
+                    <do_if value="$isAssigned" negate="true">
+                      <debug_text text="'PlayerPoi: no nearby POI found for data vault %s. Creating POI at data vault location.'.[@$dataVault.debugname]" chance="$debugChance" filter="scripts" />
+                      <run_actions ref="Assign_POI_On_Object">
+                        <param name="object" value="$dataVault" />
+                        <param name="prefix" value="{20109, 8901}" />
+                      </run_actions>
+                    </do_if>
+                  </do_if>
+                </do_if>
+              </do_for_each>
+            </do_if>
+          </actions>
+        </cue>
+
         <cue name="On_Found_Lockbox" instantiate="true" version="1">
           <conditions>
             <event_object_signalled object="player.entity" param="'PlayerPoi.FoundLockbox'" />
@@ -142,6 +173,29 @@
                 <run_actions ref="Assign_POI_On_Object">
                   <param name="object" value="@event.param2" />
                   <param name="prefix" value="{20109, 4001}" />
+                </run_actions>
+              </do_if>
+            </do_if>
+          </actions>
+        </cue>
+
+
+        <cue name="On_Found_Data_Vault" instantiate="true" version="1">
+          <conditions>
+            <event_object_signalled object="player.entity" param="'PlayerPoi.FoundDataVault'" />
+          </conditions>
+          <actions>
+            <include_actions ref="md.Player_POI_Interface.Get_Variables" />
+            <debug_text text="'PlayerPoi: On_Found_Data_Vault invoked. Data vault: %s'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
+            <do_if value="event.param2? and @event.param2 != null">
+              <run_actions ref="Is_POI_Assigned_On_Object" result="$isAssigned">
+                <param name="object" value="@event.param2" />
+              </run_actions>
+              <do_if value="$isAssigned" negate="true">
+                <debug_text text="'PlayerPoi: no nearby POI found for newly found data vault %s. Creating POI at data vault location.'.[@event.param2.debugname]" chance="$debugChance" filter="scripts" />
+                <run_actions ref="Assign_POI_On_Object">
+                  <param name="object" value="@event.param2" />
+                  <param name="prefix" value="{20109, 8901}" />
                 </run_actions>
               </do_if>
             </do_if>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff>
+  <replace sel="/aiscript/interrupts/library/handler/conditions/check_value[@value='$lockbox.locks.operational.count']">
+    <count_gravidar_contacts result="$dataVault" object="this.assignedcontrolled" datavault="true" functional="true" min="1" multiple="false">
+      <match_context class="class.highway" negate="true" />
+      <match owner="this.trueowner" negate="true" />
+    </count_gravidar_contacts>
+  </replace>
+  <remove sel="/aiscript/interrupts/library/handler/conditions/check_value[@value='$lockbox.sector']" />
+  <remove sel="/aiscript/interrupts/library/handler/conditions/check_value[@value=&quot;(@this.assignedcontrolled.order.id != 'CollectLockbox') or (@this.assignedcontrolled.order.$target != $lockbox)&quot;]" />
+  <replace sel="/aiscript/interrupts/library/handler/conditions/check_any/check_value[@value='not this.isplayerowned']">
+    <check_all>
+      <check_value value="@$lockbox != null" />
+      <check_value value="$lockbox.locks.operational.count" />
+      <check_value value="$lockbox.sector" />
+      <check_value value="(@this.assignedcontrolled.order.id != 'CollectLockbox') or (@this.assignedcontrolled.order.$target != $lockbox)" />
+      <check_any>
+        <check_value value="not this.isplayerowned" />
+        <check_value value="not @global.$foundlockboxes.indexof.{$lockbox}" />
+      </check_any>
+    </check_all>
+  </replace>
+  <replace sel="/aiscript/interrupts/library/handler/conditions/check_any/check_value[@value='not @global.$foundlockboxes.indexof.{$lockbox}']">
+    <check_all>
+      <check_value value="this.isplayerowned" />
+      <check_value value="@$dataVault != null" />
+      <check_value value="$dataVault.isdatavault" />
+      <check_value value="$dataVault.isunlocked" negate="true" />
+      <check_value value="@this.assignedcontrolled.order.$target != $dataVault" />
+    </check_all>
+  </replace>
+  <add sel="/aiscript/interrupts/library/handler/actions" pos="prepend">
+    <do_if value="@$lockbox == null">
+      <resume label="skip_lockbox" />
+    </do_if>
+  </add>
+  <add sel="/aiscript/interrupts/library/handler/actions/remove_value[@name='$lockboxpos']" pos="after">
+    <label name="skip_lockbox" />
+  </add>
+  <add sel="/aiscript/interrupts/library/handler/actions/remove_value[@name='$lockbox']" pos="after">
+    <do_if value="@$dataVault != null">
+      <do_if value="not global.$playerPOIFoundDataVaults?">
+        <create_group groupname="global.$playerPOIFoundDataVaults" />
+      </do_if>
+      <do_if value="not @global.$playerPOIFoundDataVaults.indexof.{$dataVault}">
+        <add_to_group groupname="global.$playerPOIFoundDataVaults" object="$dataVault" />
+        <debug_text text="'appending to found data vault group. num entries: ' + global.$playerPOIFoundDataVaults.count" chance="0" />
+      </do_if>
+      <do_all exact="global.$playerPOIFoundDataVaults.count" counter="$i" reverse="true" comment="clean up group">
+        <do_if value="not global.$playerPOIFoundDataVaults.{$i}.isoperational">
+          <debug_text text="'cleaning up %s %s from found data vault group.'.[@global.$playerPOIFoundDataVaults.{$i}.knownname, global.$playerPOIFoundDataVaults.{$i}]" chance="0" />
+          <remove_from_group group="global.$playerPOIFoundDataVaults" object="global.$playerPOIFoundDataVaults.{$i}" />
+        </do_if>
+      </do_all>
+      <do_if value="@player.entity.$playerPoi.$assignDataVaults == true">
+        <signal_objects object="player.entity" param="'PlayerPoi.FoundDataVault'" param2="$dataVault" />
+      </do_if>
+    </do_if>
+    <remove_value name="$dataVault" />
+  </add>
+</diff>

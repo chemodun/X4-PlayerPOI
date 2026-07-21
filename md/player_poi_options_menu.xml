@@ -111,6 +111,25 @@
                 $mouseOverText = {1972092414, 91020},
               ]" />
             <include_actions ref="Add_Empty_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Add_Row" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_CheckBox"
+              param="table[
+                  $id = 'player_poi_assign_data_vaults',
+                  $checked = @player.entity.$playerPoi.$assignDataVaults,
+                  $col = 1,
+                  $width = 'Helper.standardButtonHeight',
+                  $height = 'Helper.standardButtonHeight',
+                  $mouseOverText = {1972092414, 91030},
+                  $onClick = Player_Poi_On_Checkbox_Change
+                ]" />
+            <signal_cue_instantly cue="md.Simple_Menu_API.Make_Text"
+              param="table[
+                $col = 2,
+                $colSpan = 11,
+                $text = {1972092414, 90012},
+                $mouseOverText = {1972092414, 91030},
+              ]" />
+            <include_actions ref="Add_Empty_Row" />
 
             <run_actions ref="Add_Title_Row">
               <param name="title" value="{1972092414, 90100}" />
@@ -265,6 +284,11 @@
               <set_value name="player.entity.$playerPoi.$assignLockboxes" exact="if event.param.$checked then true else false" />
               <debug_text text="'PlayerPoi Options: Signaling AssignLockboxesChangedSignal'" context="false" filter="scripts" chance="$debugChance" />
               <signal_cue_instantly cue="md.Player_POI.On_Assign_Lockboxes_Changed" />
+            </do_if>
+            <do_if value="event.param.$id == 'player_poi_assign_data_vaults'">
+              <set_value name="player.entity.$playerPoi.$assignDataVaults" exact="if event.param.$checked then true else false" />
+              <debug_text text="'PlayerPoi Options: Signaling AssignDataVaultsChangedSignal'" context="false" filter="scripts" chance="$debugChance" />
+              <signal_cue_instantly cue="md.Player_POI.On_Assign_DataVaults_Changed" />
             </do_if>
             <do_if value="event.param.$id == 'player_poi_assign_on_hidden_all'">
               <set_value name="player.entity.$playerPoi.$assignHiddenAll" exact="if event.param.$checked then true else false" />
