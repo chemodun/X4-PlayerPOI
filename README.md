@@ -6,7 +6,7 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 
 - **Creation of custom POIs** on the map at any location or by assignment to objects (non-player stations, gates, abandoned ships, lockboxes).
 - **Automatic name generation** for POIs based on the assigned object name or location coordinates.
-- **Automatic POI assignment** to newly discovered abandoned ships and lockboxes, with optional exclusion during claim procedures.
+- **Automatic POI assignment** to newly discovered abandoned ships, lockboxes, and data vaults, with optional exclusion during claim procedures for ships.
 - **Duplicate prevention** - checks prevent creating multiple POIs at the same location.
 - **POI management tab** in the Property Owned Information menu for centralized access to all your POIs.
 - **Context menu** for POIs in space and on the map, with options to rename, self-destruct, or locate POIs.
@@ -15,7 +15,7 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 
 ## Requirements
 
-- **X4: Foundations**: Version 8.00HF3 or newer.
+- **X4: Foundations**: Version 8.00HF3 or 9.00 and newer.
 - **UI Extensions and HUD**: Version v8.0.4.0 or higher by [kuertee](https://next.nexusmods.com/profile/kuertee?gameId=2659).
   - Available on Nexus Mods: [UI Extensions and HUD](https://www.nexusmods.com/x4foundations/mods/552)
 - **Mod Support APIs**: Version 1.95 or higher by [SirNukes](https://next.nexusmods.com/profile/sirnukes?gameId=2659).
@@ -66,6 +66,8 @@ The created `POI` will be visible in space, on a map and in the `Player POI` tab
 
 You can manage your created `POIs` in space, on map and in the `Player POI` tab of the Property Owned Information.
 All management actions (like renaming or self-destructing a `POI`) are available in the context menu, which can be accessed by right-clicking on a `POI` in space, on the map or in the tab.
+
+![Some POIs example](docs/images/short_example.png)
 
 #### Managing POIs in space
 
@@ -134,13 +136,15 @@ Where the `Player POI` options menu looks like this:
 
 #### Automatic POI assignment
 
-There are two options group under the `Automatic POI assignment when:` section:
+There are three options group under the `Automatic POI assignment when:` section:
 
 - `Found an abandoned ship` - when enabled, a `POI` will be automatically assigned to any found abandoned ship. But moreover, all already known abandoned ships will be assigned with `POI`s on enabling this option.
 
   This option has an additional sub-option `Only if no claim procedure is initiated`, which will only assign `POI`s to abandoned ships that are not currently being claimed by player. This means that if the player set a claim procedure on an abandoned ship as default action or selected this action by event menu, the `POI` will not be assigned to such ship.
 
 - `Found a lockbox` - when enabled, a `POI` will be automatically assigned to any found lockbox. And similarly to previous, all already known lockboxes will be assigned with `POI`s on enabling this option.
+
+- `Found a data vault` - when enabled, a `POI` will be automatically assigned to any found data vault. And similarly to previous, all already known data vaults (after installing the version 8.00.04) will be assigned with `POI`s on enabling this option.
 
 #### Other
 
@@ -174,6 +178,11 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 - [SirNukes](https://next.nexusmods.com/profile/sirnukes?gameId=2659) — for the `Mod Support APIs` that power the UI hooks.
 
 ## Changelog
+
+### [8.00.04] - 2026-07-22
+
+- **Added**
+  - Possibility to automatically assign POI's to found data vaults and reveal ErlKing's blueprint data vaults on the map.
 
 ### [8.00.03] - 2026-03-01
 

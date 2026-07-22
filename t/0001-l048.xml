@@ -16,9 +16,11 @@
       <t id="1012">Przypisz POI</t>
       <t id="90000">Automatyczne przypisywanie POI gdy:</t>
       <t id="90011">Tylko jeśli nie została zainicjowana procedura roszczenia</t>
+      <t id="90012">Znaleziono skarbiec danych</t>
       <t id="90100">Ukryte statki:</t>
       <t id="90101">Przypisz POI</t>
       <t id="90102">Na wszystkich, nie tylko na znanych</t>
+      <t id="90200">{20101,121101} {1001,98}:</t>
       <t id="90900">Inne</t>
       <t id="90910">Optymalizuj pozycję okna zmiany nazwy</t>
       <t id="90990">Poziom debugowania:</t>
@@ -28,8 +30,11 @@
       <t id="91010">Po włączeniu przypisze POI do każdego nowo odkrytego porzuconego statku, jak również do wszystkich wcześniej znanych</t>
       <t id="91011">Czy statki, które będą zgłaszane do przejęcia, powinny mieć przypisany POI?</t>
       <t id="91020">Po włączeniu przypisze POI do każdej nowo odkrytej skrzynki, jak również do wszystkich wcześniej znanych</t>
+      <t id="91030">Po włączeniu przypisze POI do każdego nowo odkrytego skarbca danych, jak również do wszystkich wcześniej znanych</t>
       <t id="91101">Przypiszę POI do niektórych obiektów. Kto wie do jakich?</t>
       <t id="91102">Naprawdę dziwne pole wyboru. Kto wie, co robi?</t>
+      <t id="91200">Przypisze POI do każdego znanego, ale jeszcze nieodblokowanego specjalnego (Pirat DLC / Erlking) skarbca danych, jeśli występuje w tej galaktyce</t>
+      <t id="91201">Czy POI powinien zostać przypisany, nawet jeśli skarbiec danych nie jest jeszcze znany?</t>
       <t id="91910">Okno zmiany nazwy pojawi się w pobliżu wybranego POI zamiast ostatniej pozycji myszy w menu kontekstowym</t>
     </page>
   </add>

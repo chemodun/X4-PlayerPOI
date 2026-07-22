@@ -16,9 +16,11 @@
       <t id="1012">Assigner un POI</t>
       <t id="90000">Attribution automatique de POI quand :</t>
       <t id="90011">Seulement si aucune procédure de revendication n'est initiée</t>
+      <t id="90012">Coffre de données trouvé</t>
       <t id="90100">Vaisseaux cachés :</t>
       <t id="90101">Assigner un POI</t>
       <t id="90102">Sur tous, pas seulement sur les connus</t>
+      <t id="90200">{20101,121101} {1001,98}:</t>
       <t id="90900">Autre</t>
       <t id="90910">Optimiser la position de la fenêtre de renommage</t>
       <t id="90990">Niveau de débogage :</t>
@@ -28,8 +30,11 @@
       <t id="91010">Lorsqu'activé, attribuera des POI à chaque vaisseau abandonné nouvellement découvert ainsi qu'à tous ceux déjà connus</t>
       <t id="91011">Les vaisseaux qui seront revendiqués doivent-ils avoir un POI assigné ?</t>
       <t id="91020">Lorsqu'activé, attribuera des POI à chaque coffre nouvellement découvert ainsi qu'à tous ceux déjà connus</t>
+      <t id="91030">Lorsqu'activé, attribuera des POI à chaque coffre de données nouvellement découvert ainsi qu'à tous ceux déjà connus</t>
       <t id="91101">Attribuera des POI à certains objets. Qui sait lesquels ?</t>
       <t id="91102">Case à cocher vraiment étrange. Qui sait ce qu'elle fait ?</t>
+      <t id="91200">Attribuera un POI à tout coffre de données spécial (DLC Pirate / Erlking) connu mais pas encore déverrouillé, s'il est présent dans cette galaxie</t>
+      <t id="91201">Le POI doit-il être attribué même si le coffre de données n'est pas encore connu ?</t>
       <t id="91910">La fenêtre de renommage apparaîtra près du POI sélectionné au lieu de la dernière position de la souris dans le menu contextuel</t>
     </page>
   </add>
