@@ -6,7 +6,7 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 [list]
 [*] [b]Creation of custom POIs[/b] on the map at any location or by assignment to objects (non-player stations, gates, abandoned ships, lockboxes).
 [*] [b]Automatic name generation[/b] for POIs based on the assigned object name or location coordinates.
-[*] [b]Automatic POI assignment[/b] to newly discovered abandoned ships and lockboxes, with optional exclusion during claim procedures.
+[*] [b]Automatic POI assignment[/b] to newly discovered abandoned ships, lockboxes, and data vaults, with optional exclusion during claim procedures for ships.
 [*] [b]Duplicate prevention[/b] - checks prevent creating multiple POIs at the same location.
 [*] [b]POI management tab[/b] in the Property Owned Information menu for centralized access to all your POIs.
 [*] [b]Context menu[/b] for POIs in space and on the map, with options to rename, self-destruct, or locate POIs.
@@ -15,7 +15,7 @@ Marks abandoned ships, lockboxes, stations, and any point in space, either autom
 [/list]
 [size=3][u][b]Requirements[/b][/u][/size]
 [list]
-[*] [b]X4: Foundations[/b]: Version 8.00HF3 or newer.
+[*] [b]X4: Foundations[/b]: Version 8.00HF3 or 9.00 and newer.
 [*] [b]UI Extensions and HUD[/b]: Version v8.0.4.0 or higher by [url=https://next.nexusmods.com/profile/kuertee?gameId=2659]kuertee[/url].
 [list]
 [*] Available on Nexus Mods: [url=https://www.nexusmods.com/x4foundations/mods/552]UI Extensions and HUD[/url]
@@ -69,7 +69,9 @@ The created [b]POI[/b] will be visible in space, on a map and in the [b]Player P
 [size=3][u][i]Managing POIs[/i][/u][/size]
 
 You can manage your created [b]POIs[/b] in space, on map and in the [b]Player POI[/b] tab of the Property Owned Information.
-All management actions (like renaming or self-destructing a [b]POI[/b]) are available in the context menu, which can be accessed by right-clicking on a [b]POI[/b] in space, on the map or in the tab.
+All management actions (like renaming or self-destructing a `POI`) are available in the context menu, which can be accessed by right-clicking on a [b]POI[/b] in space, on the map or in the tab.
+
+[img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/short_example.png[/img]
 
 [size=3][u]Managing POIs in space[/u][/size]
 
@@ -79,7 +81,7 @@ There is how the context menu for a [b]POI[/b] in space looks like:
 
 [size=2][u][i]Renaming a POI in space[/i][/u][/size]
 
-When you select "Rename" from the context menu of a [b]POI[/b] in space, a rename window will open, allowing you to enter a new name for the [b]POI[/b].
+When you select "Rename" from the context menu of a [b]POI[/b] in space, a rename window will open, allowing you to enter a new name for the `POI`.
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_rename_in_space.png[/img]
 
@@ -89,19 +91,19 @@ As soon as you enter a new name and confirm it, the [b]POI[/b] will be renamed.
 
 [size=3][u]Managing POIs on the map[/u][/size]
 
-Context menu for a [b]POI[/b] on the map is the same as in space, but with an additional option to center the map on the [b]POI[/b]:
+Context menu for a [b]POI[/b] on the map is the same as in space, but with an additional option to center the map on the `POI`:
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_on_map.png[/img]
 
 [size=3][u]Managing POIs in the Player POI tab[/u][/size]
 
-There is an additional tab in the Property Owned Information called [b]Player POI[/b], where you can see all your created [b]POIs[/b] in one place. You can also manage your [b]POIs[/b] from this tab using the same context menu as in space and on the map.
+There is an additional tab in the Property Owned Information called `Player POI`, where you can see all your created [b]POIs[/b] in one place. You can also manage your [b]POIs[/b] from this tab using the same context menu as in space and on the map.
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_tab_in_property_owned.png[/img]
 
 [size=2][u][i]Self-destructing a POI[/i][/u][/size]
 
-When you select "Self-destruct" from the context menu of a [b]POI[/b], the [b]POI[/b] will be immediately removed from the game. This action cannot be undone, so use it with caution.
+When you select "Self-destruct" from the context menu of a `POI`, the [b]POI[/b] will be immediately removed from the game. This action cannot be undone, so use it with caution.
 There is an example of a [b]POI[/b] that is about to be self-destructed in the following screenshot:
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_context_menu_on_tab.png[/img]
@@ -112,7 +114,7 @@ And here is how the list of [b]POIs[/b] looks like after the [b]POI[/b] has been
 
 [size=2][u][i]Renaming a POI from the "Player POI" tab[/i][/u][/size]
 
-When you select "Rename" from the context menu of a [b]POI[/b] in the [b]Player POI[/b] tab, a rename window will open, allowing you to enter a new name for the [b]POI[/b].
+When you select "Rename" from the context menu of a [b]POI[/b] in the [b]Player POI[/b] tab, a rename window will open, allowing you to enter a new name for the `POI`.
 
 [img]https://raw.githubusercontent.com/chemodun/X4-PlayerPOI/refs/heads/main/docs/images/poi_rename_on_tab.png[/img]
 
@@ -138,13 +140,14 @@ Where the [b]Player POI[/b] options menu looks like this:
 
 [size=3][u]Automatic POI assignment[/u][/size]
 
-There are two options group under the [b]Automatic POI assignment when:[/b] section:
+There are three options group under the [b]Automatic POI assignment when:[/b] section:
 [list]
-[*] [b]Found an abandoned ship[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found abandoned ship. But moreover, all already known abandoned ships will be assigned with [b]POI[/b]s on enabling this option.
+[*] [b]Found an abandoned ship[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found abandoned ship. But moreover, all already known abandoned ships will be assigned with `POI`s on enabling this option.
 [/list]
-  This option has an additional sub-option [b]Only if no claim procedure is initiated[/b], which will only assign [b]POI[/b]s to abandoned ships that are not currently being claimed by player. This means that if the player set a claim procedure on an abandoned ship as default action or selected this action by event menu, the [b]POI[/b] will not be assigned to such ship.
+  This option has an additional sub-option `Only if no claim procedure is initiated`, which will only assign `POI`s to abandoned ships that are not currently being claimed by player. This means that if the player set a claim procedure on an abandoned ship as default action or selected this action by event menu, the [b]POI[/b] will not be assigned to such ship.
 [list]
-[*] [b]Found a lockbox[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found lockbox. And similarly to previous, all already known lockboxes will be assigned with [b]POI[/b]s on enabling this option.
+[*] [b]Found a lockbox[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found lockbox. And similarly to previous, all already known lockboxes will be assigned with `POI`s on enabling this option.
+[*] [b]Found a data vault[/b] - when enabled, a [b]POI[/b] will be automatically assigned to any found data vault. And similarly to previous, all already known data vaults (after installing the version 8.00.04) will be assigned with `POI`s on enabling this option.
 [/list]
 [size=3][u]Other[/u][/size]
 
@@ -181,6 +184,13 @@ In addition, for the resolving issues, you can enable debug logging in the optio
 [/list]
 [size=3][u][b]Changelog[/b][/u][/size]
 
+[size=3][u][i][8.00.04] - 2026-07-22[/i][/u][/size]
+[list]
+[*] [b]Added[/b]
+[list]
+[*] Possibility to automatically assign POI's to found data vaults and reveal ErlKing's blueprint data vaults on the map.
+[/list]
+[/list]
 [size=3][u][i][8.00.03] - 2026-03-01[/i][/u][/size]
 [list]
 [*] [b]Fixed[/b]
